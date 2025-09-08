@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import LogoWhite from '../assets/Hirab-Logo-White.png';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,7 +124,7 @@ const Navbar: React.FC = () => {
                   {/* Your Logo Image */}
                   <div className="relative w-12 h-12 md:w-14 md:h-14">
                     <img
-                      src="/src/assets/Hirab-Logo-White.png"
+                      src={LogoWhite}
                       alt="Hirab Abdourazak Logo"
                       className="w-full h-full object-contain"
                     />
