@@ -1,6 +1,6 @@
 # Hirab Abdourazak - Portfolio Website
 
-A modern, responsive portfolio website built with React, TypeScript, Vite, and Tailwind CSS. Features smooth animations, interactive elements inspired by ReactBits.dev, and a clean, professional design.
+A modern, responsive portfolio website built with React, TypeScript, Vite, and Tailwind CSS. Features smooth animations, interactive elements from ReactBits.dev, and a clean, professional design.
 
 ## 🚀 Features
 
