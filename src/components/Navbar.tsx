@@ -56,18 +56,37 @@ const Navbar: React.FC = () => {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 pl-8 ${
           isScrolled
             ? 'bg-background/80 backdrop-blur-md border-b border-white/10'
             : 'bg-transparent'
         }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="section-container">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Mobile Menu Button */}
+        <div className="section-container max-w-full">
+          <div className="flex items-center justify-between h-16 md:h-20 w-full">
+            {/* Mobile Logo - Left */}
+            <motion.button
+              className="md:hidden flex items-center"
+              onClick={() => handleScrollToSection('#intro')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative w-10 h-10">
+                <img
+                  src={LogoWhite}
+                  alt="Hirab Abdourazak Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </motion.button>
+
+            {/* Mobile Menu Button - Right */}
             <motion.button
               className="md:hidden p-2 text-text-muted hover:text-text transition-colors duration-200"
               onClick={() => setIsOpen(!isOpen)}
@@ -162,8 +181,6 @@ const Navbar: React.FC = () => {
               </div>
             </div>
 
-            {/* Mobile spacer to balance the hamburger menu */}
-            <div className="md:hidden w-10 h-10"></div>
           </div>
         </div>
       </motion.nav>

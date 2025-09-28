@@ -15,14 +15,16 @@ export const SITE = {
     { label: "Email", href: "mailto:hirababdourazak@gmail.com" },
   ],
   skills: {
-    languages: ["TypeScript", "Python", "Java", "C/C++", "SQL", "Go"],
+    languages: ["TypeScript", "Python", "Java", "C/C++", "SQL", "Go", "JavaScript"],
     frameworks: [
       "React",
       "Next.js",
-      "Node/Express",
-      "Flask/FastAPI",
+      "Node.js",
+      "Express",
+      "Flask",
       "Tailwind",
       "Framer Motion",
+      "FastAPI",
     ],
     apisTools: [
       "OpenAI API",
@@ -31,37 +33,38 @@ export const SITE = {
       "AWS (Rekognition, S3)",
       "Docker",
       "Vite",
-      "Git/GitHub Actions",
+      "Git",
+      "Google Cloud",
+      "Resend",
     ],
   },
   projects: [
     {
         title: "One Point Five",
         description:
-          "A hotel-booking website .",
+          "A client-focused real estate website designed to showcase property listings with a sleek, responsive UI.",
         tags: ["React.js", "Resend", "Google Cloud", "Vercel"],
         links: {
-          github: "https://github.com/Capstone-Projects-2025-Spring/project-piggyback-learning-team-1",
+          github: "https://github.com/Hxrob/onepointfive",
           demo: "https://onepointfivehotel.com",
         },
         image: "/src/assets/images/onepointfive.jpeg",
       },
 
     {
-      title: "HotSpot — Real-time Event Pings",
+      title: "HotSpot",
       description:
-        "React.js + Express + Firebase app for geo-based event alerts with live updates and role-based moderation.",
+        "A geolocation-based event discovery and real-time alert app that lets users broadcast, find, and join nearby happenings.",
       tags: ["React.js", "Express", "Firebase", "Google Maps API"],
       links: {
         github: "https://github.com/cis3296f24/01-HotSpot",
-        demo: "https://your-hotspot-demo.com",
       },
       image: "/src/assets/images/hotspot.png",
     },
     {
-      title: "Piglet Prep — Interactive Video Quizzes",
+      title: "Piglet Prep",
       description:
-        "YouTube-embedded quiz platform using OpenAI for question generation and AWS Rekognition for scene tagging.",
+        "An interactive video learning platform for children, embedding real-time multiple-choice and object-detection questions into videos to assess understanding and adapt learning.",
       tags: ["Next.js", "OpenAI API", "Rekognition", "MongoDB"],
       links: {
         github: "https://github.com/Capstone-Projects-2025-Spring/project-piggyback-learning-team-1",

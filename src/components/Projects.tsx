@@ -1,31 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
+import { 
+  SiReact, 
+  SiNextdotjs, 
+  SiExpress, 
+  SiFirebase, 
+  SiMongodb, 
+  SiVercel, 
+  SiGooglecloud,
+  SiOpenai,
+  SiAmazon,
+  SiGooglemaps
+} from 'react-icons/si';
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
-import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
 import { AnimatedBackground } from './ui/AnimatedBackground';
 import { SITE } from '../data/site';
 
 const Projects: React.FC = () => {
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const currentProject = SITE.projects[currentProjectIndex];
-
-  const nextProject = () => {
-    setCurrentProjectIndex((prev) => (prev + 1) % SITE.projects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentProjectIndex((prev) => (prev - 1 + SITE.projects.length) % SITE.projects.length);
+  const techIcons: Record<string, React.ReactElement> = {
+    'React.js': <SiReact className="w-6 h-6 text-[#61DAFB]" />,
+    'Next.js': <SiNextdotjs className="w-6 h-6 text-white" />,
+    'Express': <SiExpress className="w-6 h-6 text-white" />,
+    'Firebase': <SiFirebase className="w-6 h-6 text-[#FFCA28]" />,
+    'MongoDB': <SiMongodb className="w-6 h-6 text-[#47A248]" />,
+    'Vercel': <SiVercel className="w-6 h-6 text-white" />,
+    'Google Cloud': <SiGooglecloud className="w-6 h-6 text-[#4285F4]" />,
+    'OpenAI API': <SiOpenai className="w-6 h-6 text-white" />,
+    'Rekognition': <SiAmazon className="w-6 h-6 text-[#FF9900]" />,
+    'Google Maps API': <SiGooglemaps className="w-6 h-6 text-[#4285F4]" />,
+    'Resend': <ExternalLink className="w-6 h-6 text-primary" />
   };
 
   return (
-    <Section id="projects" className="relative min-h-screen flex flex-col">
+    <Section id="projects" className="relative">
       {/* Animated Background (projects variant) */}
       <AnimatedBackground variant="projects" />
 
-      <div className="relative z-10 flex-1 flex flex-col">
+      <div className="relative z-10">
         <SectionHeading
           overline="Projects"
           title="Featured Work"
@@ -33,127 +47,84 @@ const Projects: React.FC = () => {
           centered
         />
 
-        {/* Full-screen project display */}
-        <div className="flex-1 flex items-center justify-center mt-8">
-          <div className="w-full max-w-7xl mx-auto px-4">
-            <motion.div
-              key={currentProjectIndex}
-              className="grid lg:grid-cols-2 gap-12 items-center min-h-[60vh]"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* Project Image - Left Side */}
-              <motion.div
-                className="relative group"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+        {/* Project sections */}
+        <div className="mt-16 md:mt-20 space-y-24 md:space-y-32">
+          {SITE.projects.map((project, index) => {
+            const isEven = index % 2 === 1; // Second project (index 1) is "even" in display order
+            
+            return (
+              <motion.article
+                key={project.title}
+                className={`w-full flex flex-col items-center gap-8 md:gap-12 ${
+                  isEven ? 'md:flex-row-reverse' : 'md:flex-row'
+                }`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.05 }}
               >
-                <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-primary-hover/10 shadow-2xl">
-                  <img
-                    src={currentProject.image}
-                    alt={currentProject.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                
-                {/* Navigation arrows */}
-                <button
-                  onClick={prevProject}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-surface/80 hover:bg-surface text-text hover:text-primary p-3 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  onClick={nextProject}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-surface/80 hover:bg-surface text-text hover:text-primary p-3 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </motion.div>
-
-              {/* Project Details - Right Side */}
-              <motion.div
-                className="space-y-6"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                {/* Project Title */}
-                <div>
-                  <h3 className="text-4xl font-bold text-text mb-4 leading-tight">
-                    {currentProject.title}
-                  </h3>
-                  <p className="text-xl text-text-muted leading-relaxed">
-                    {currentProject.description}
-                  </p>
-                </div>
-                {/* Tech Stack Badges */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-primary uppercase tracking-wider">
-                    Technologies Used
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {currentProject.tags.map((tag) => (
-                      <Badge 
-                        key={tag} 
-                        variant="secondary" 
-                        className="text-sm px-3 py-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors"
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
+                {/* Image pane */}
+                <div className="relative md:w-2/5 w-full flex-shrink-0 flex items-center justify-center">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-auto object-contain rounded-lg"
+                    />
+                  ) : (
+                    <div className="w-full aspect-video bg-primary/5 rounded-lg" />
+                  )}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-4 pt-4">
+                {/* Details pane */}
+                <div className="md:w-3/5 w-full flex flex-col justify-center py-8 md:py-0 gap-6">
+                {/* Title */}
+                <h3 className="text-4xl md:text-5xl font-semibold text-text leading-tight">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xl text-text-muted leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Technology Icons */}
+                <div className="flex flex-wrap gap-3">
+                  {project.tags.map((tag) => (
+                    <div key={tag} className="p-2 rounded-lg bg-surface/30 hover:bg-surface/50 transition-colors" title={tag}>
+                      {techIcons[tag] || <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-xs text-primary font-medium">{tag.charAt(0)}</div>}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-4">
+                  {'demo' in project.links && project.links.demo && (
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onClick={() => window.open((project.links as any).demo, '_blank')}
+                      aria-label={`View live demo of ${project.title}`}
+                    >
+                      <ExternalLink className="h-5 w-5 mr-2" />
+                      Demo
+                    </Button>
+                  )}
+                  
                   <Button
                     variant="secondary"
                     size="lg"
-                    className="flex-1 group/btn bg-primary hover:bg-primary-hover text-white"
-                    onClick={() => window.open(currentProject.links.demo, '_blank')}
-                    disabled={!currentProject.links.demo}
+                    onClick={() => window.open(project.links.github, '_blank')}
+                    aria-label={`View source code for ${project.title} on GitHub`}
                   >
-                    <ExternalLink className="h-5 w-5 mr-2 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
-                    Live Demo
-                  </Button>
-                  
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className="flex-1 group/btn border-primary/20 hover:border-primary/40 hover:bg-primary/10"
-                    onClick={() => window.open(currentProject.links.github, '_blank')}
-                  >
-                    <Github className="h-5 w-5 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                    View Code
+                    <Github className="h-5 w-5 mr-2" />
+                    GitHub
                   </Button>
                 </div>
-
-                {/* Project Counter */}
-                <div className="flex items-center justify-between pt-8 border-t border-primary/20">
-                  <div className="flex space-x-2">
-                    {SITE.projects.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentProjectIndex(index)}
-                        className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                          index === currentProjectIndex
-                            ? 'bg-primary scale-125'
-                            : 'bg-primary/30 hover:bg-primary/50'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-sm text-text-muted">
-                    {currentProjectIndex + 1} of {SITE.projects.length}
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
+              </div>
+            </motion.article>
+            );
+          })}
         </div>
 
         {/* Call to action */}

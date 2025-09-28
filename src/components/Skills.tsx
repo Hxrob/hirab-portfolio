@@ -8,39 +8,42 @@ import {
   SiTypescript, SiPython, SiCplusplus, SiPostgresql, SiGo,
   SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiFlask, SiFastapi,
   SiTailwindcss, SiFramer, SiOpenai, SiFirebase, SiMongodb,
-  SiAmazon, SiDocker, SiVite, SiGit, SiGithubactions,
-  SiJavascript
+  SiAmazon, SiDocker, SiVite, SiGit,
+  SiJavascript, SiGooglecloud, SiResend,
+  SiGithub
 } from 'react-icons/si';
 
 const Skills: React.FC = () => {
   const techLogos = [
     // Languages
-    { node: <SiTypescript style={{ color: 'white' }} />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-    { node: <SiPython style={{ color: 'white' }} />, title: "Python", href: "https://python.org" },
-    { node: <SiCplusplus style={{ color: 'white' }} />, title: "C/C++", href: "https://isocpp.org" },
-    { node: <SiPostgresql style={{ color: 'white' }} />, title: "SQL", href: "https://www.postgresql.org" },
-    { node: <SiGo style={{ color: 'white' }} />, title: "Go", href: "https://golang.org" },
+    { node: <SiTypescript style={{ color: 'white' }} />, title: "TypeScript", href: "" },
+    { node: <SiPython style={{ color: 'white' }} />, title: "Python", href: "" },
+    { node: <SiCplusplus style={{ color: 'white' }} />, title: "C/C++", href: "" },
+    { node: <SiPostgresql style={{ color: 'white' }} />, title: "SQL", href: "" },
+    { node: <SiGo style={{ color: 'white' }} />, title: "Go", href: "" },
     { node: <SiJavascript style={{ color: 'white' }} />, title: "JavaScript", href: "" },
     
     // Frameworks
-    { node: <SiReact style={{ color: 'white' }} />, title: "React", href: "https://react.dev" },
-    { node: <SiNextdotjs style={{ color: 'white' }} />, title: "Next.js", href: "https://nextjs.org" },
-    { node: <SiNodedotjs style={{ color: 'white' }} />, title: "Node.js", href: "https://nodejs.org" },
-    { node: <SiExpress style={{ color: 'white' }} />, title: "Express", href: "https://expressjs.com" },
-    { node: <SiFlask style={{ color: 'white' }} />, title: "Flask", href: "https://flask.palletsprojects.com" },
-    { node: <SiFastapi style={{ color: 'white' }} />, title: "FastAPI", href: "https://fastapi.tiangolo.com" },
-    { node: <SiTailwindcss style={{ color: 'white' }} />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
-    { node: <SiFramer style={{ color: 'white' }} />, title: "Framer Motion", href: "https://www.framer.com/motion" },
+    { node: <SiReact style={{ color: 'white' }} />, title: "React", href: "" },
+    { node: <SiNextdotjs style={{ color: 'white' }} />, title: "Next.js", href: "" },
+    { node: <SiNodedotjs style={{ color: 'white' }} />, title: "Node.js", href: "" },
+    { node: <SiExpress style={{ color: 'white' }} />, title: "Express", href: "" },
+    { node: <SiFlask style={{ color: 'white' }} />, title: "Flask", href: "" },
+    { node: <SiFastapi style={{ color: 'white' }} />, title: "FastAPI", href: "" },
+    { node: <SiTailwindcss style={{ color: 'white' }} />, title: "Tailwind CSS", href: "" },
+    { node: <SiFramer style={{ color: 'white' }} />, title: "Framer Motion", href: "" },
     
     // APIs & Tools
-    { node: <SiOpenai style={{ color: 'white' }} />, title: "OpenAI API", href: "https://openai.com" },
-    { node: <SiFirebase style={{ color: 'white' }} />, title: "Firebase", href: "https://firebase.google.com" },
-    { node: <SiMongodb style={{ color: 'white' }} />, title: "MongoDB", href: "https://www.mongodb.com" },
-    { node: <SiAmazon style={{ color: 'white' }} />, title: "AWS", href: "https://aws.amazon.com" },
-    { node: <SiDocker style={{ color: 'white' }} />, title: "Docker", href: "https://www.docker.com" },
-    { node: <SiVite style={{ color: 'white' }} />, title: "Vite", href: "https://vitejs.dev" },
-    { node: <SiGit style={{ color: 'white' }} />, title: "Git", href: "https://git-scm.com" },
-    { node: <SiGithubactions style={{ color: 'white' }} />, title: "GitHub Actions", href: "https://github.com/features/actions" },
+    { node: <SiOpenai style={{ color: 'white' }} />, title: "OpenAI API", href: "" },
+    { node: <SiFirebase style={{ color: 'white' }} />, title: "Firebase", href: "" },
+    { node: <SiMongodb style={{ color: 'white' }} />, title: "MongoDB", href: "" },
+    { node: <SiAmazon style={{ color: 'white' }} />, title: "AWS", href: "" },
+    { node: <SiDocker style={{ color: 'white' }} />, title: "Docker", href: "" },
+    { node: <SiVite style={{ color: 'white' }} />, title: "Vite", href: "" },
+    { node: <SiGit style={{ color: 'white' }} />, title: "Git", href: "" },
+    { node: <SiGithub style={{ color: 'white' }} />, title: "GitHub", href: "" },
+    { node: <SiGooglecloud style={{ color: 'white' }} />, title: "Google Cloud", href: "" },
+    { node: <SiResend style={{ color: 'white' }} />, title: "Resend API", href: "" },
   ];
 
   return (
