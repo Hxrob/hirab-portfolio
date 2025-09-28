@@ -144,7 +144,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/src/assets/hero-image.JPEG"
+                src="/hero-image.JPEG"
                 alt={`${SITE.name} - Software Engineer & ML Enthusiast`}
                 className="w-full h-full object-cover"
               />
