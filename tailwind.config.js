@@ -7,19 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0B0B12',
+        background: '#000000',
         surface: '#101022',
         primary: {
-          DEFAULT: '#7C3AED',
+          DEFAULT: '#6A24F2',
           hover: '#8B5CF6',
         },
         text: {
-          DEFAULT: '#E6E6F0',
+          DEFAULT: '#FFFFFF',
           muted: '#A3A3B2',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Montserrat', 'system-ui', 'sans-serif'],
       },
       container: {
         center: true,

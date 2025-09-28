@@ -3,7 +3,7 @@ export const SITE = {
   role: "Software Engineer & ML Enthusiast",
   location: "Philadelphia, PA",
   intro: {
-    headline: ["Building reliable", "delightful", "intelligent apps."], // typewriter rotates
+    headline: "Building reliable, delightful, intelligent apps.",
     subtext:
       "Recent CS grad focused on SWE + ML/AI. I ship full-stack products, optimize performance, and love clean design.",
     ctaPrimary: { label: "Contact Me", href: "#contact" },
@@ -36,17 +36,30 @@ export const SITE = {
   },
   projects: [
     {
+        title: "One Point Five",
+        description:
+          "A hotel-booking website .",
+        tags: ["React.js", "Resend", "Google Cloud", "Vercel"],
+        links: {
+          github: "https://github.com/Capstone-Projects-2025-Spring/project-piggyback-learning-team-1",
+          demo: "https://onepointfivehotel.com",
+        },
+        image: "/src/assets/images/onepointfive.jpeg",
+      },
+
+    {
       title: "HotSpot — Real-time Event Pings",
       description:
-        "React Native + Express + Firebase app for geo-based event alerts with live updates and role-based moderation.",
-      tags: ["React Native", "Express", "Firebase", "Google Maps API"],
+        "React.js + Express + Firebase app for geo-based event alerts with live updates and role-based moderation.",
+      tags: ["React.js", "Express", "Firebase", "Google Maps API"],
       links: {
         github: "https://github.com/cis3296f24/01-HotSpot",
         demo: "https://your-hotspot-demo.com",
       },
+      image: "/src/assets/images/hotspot.png",
     },
     {
-      title: "Piggyback Learning — Interactive Video Quizzes",
+      title: "Piglet Prep — Interactive Video Quizzes",
       description:
         "YouTube-embedded quiz platform using OpenAI for question generation and AWS Rekognition for scene tagging.",
       tags: ["Next.js", "OpenAI API", "Rekognition", "MongoDB"],
@@ -54,7 +67,9 @@ export const SITE = {
         github: "https://github.com/Capstone-Projects-2025-Spring/project-piggyback-learning-team-1",
         demo: "https://pigletprep.vercel.app",
       },
+      image: "/src/assets/images/pigletprep.jpeg",
     },
+
   ],
   contact: {
     blurb:
