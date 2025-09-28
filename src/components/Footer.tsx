@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { SITE } from '../data/site';
 
 const Footer: React.FC = () => {
@@ -29,7 +29,11 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-xl font-bold text-text">{SITE.name}</h3>
+            <img 
+              src="/src/assets/Hirab-Name-Logo-White.png" 
+              alt={SITE.name}
+              className="h-12 w-auto"
+            />
             <p className="text-text-muted text-sm leading-relaxed">
               {SITE.role} based in {SITE.location}. Building the future one line of code at a time.
             </p>
@@ -128,9 +132,8 @@ const Footer: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <p className="text-text-muted text-sm flex items-center gap-1">
-            © {currentYear} {SITE.name}. Made with{' '}
-            <Heart className="h-4 w-4 text-red-500 fill-current" /> and lots of coffee.
+          <p className="text-text-muted text-sm flex items-center gap-2">
+            © {currentYear} Hirab Abdourazak. Made with lots of coffee.
           </p>
           
           <button

@@ -1,41 +1,53 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Layers, Wrench } from 'lucide-react';
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
-import { Badge } from './ui/Badge';
-import { Tilt } from './ui/Tilt';
-import { AnimatedBackground } from './ui/AnimatedBackground';
+import LogoLoop from './ui/LogoLoop';
 import { SITE } from '../data/site';
+import { 
+  SiTypescript, SiPython, SiCplusplus, SiPostgresql, SiGo,
+  SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiFlask, SiFastapi,
+  SiTailwindcss, SiFramer, SiOpenai, SiFirebase, SiMongodb,
+  SiAmazon, SiDocker, SiVite, SiGit,
+  SiJavascript, SiGooglecloud, SiResend,
+  SiGithub
+} from 'react-icons/si';
 
 const Skills: React.FC = () => {
-  const skillCategories = [
-    {
-      title: 'Languages',
-      icon: Code,
-      skills: SITE.skills.languages,
-      description: 'Programming languages I work with',
-    },
-    {
-      title: 'Frameworks',
-      icon: Layers,
-      skills: SITE.skills.frameworks,
-      description: 'Frameworks and libraries I use',
-    },
-    {
-      title: 'APIs & Tools',
-      icon: Wrench,
-      skills: SITE.skills.apisTools,
-      description: 'Tools and services I integrate',
-    },
+  const techLogos = [
+    // Languages
+    { node: <SiTypescript style={{ color: 'white' }} />, title: "TypeScript", href: "" },
+    { node: <SiPython style={{ color: 'white' }} />, title: "Python", href: "" },
+    { node: <SiCplusplus style={{ color: 'white' }} />, title: "C/C++", href: "" },
+    { node: <SiPostgresql style={{ color: 'white' }} />, title: "SQL", href: "" },
+    { node: <SiGo style={{ color: 'white' }} />, title: "Go", href: "" },
+    { node: <SiJavascript style={{ color: 'white' }} />, title: "JavaScript", href: "" },
+    
+    // Frameworks
+    { node: <SiReact style={{ color: 'white' }} />, title: "React", href: "" },
+    { node: <SiNextdotjs style={{ color: 'white' }} />, title: "Next.js", href: "" },
+    { node: <SiNodedotjs style={{ color: 'white' }} />, title: "Node.js", href: "" },
+    { node: <SiExpress style={{ color: 'white' }} />, title: "Express", href: "" },
+    { node: <SiFlask style={{ color: 'white' }} />, title: "Flask", href: "" },
+    { node: <SiFastapi style={{ color: 'white' }} />, title: "FastAPI", href: "" },
+    { node: <SiTailwindcss style={{ color: 'white' }} />, title: "Tailwind CSS", href: "" },
+    { node: <SiFramer style={{ color: 'white' }} />, title: "Framer Motion", href: "" },
+    
+    // APIs & Tools
+    { node: <SiOpenai style={{ color: 'white' }} />, title: "OpenAI API", href: "" },
+    { node: <SiFirebase style={{ color: 'white' }} />, title: "Firebase", href: "" },
+    { node: <SiMongodb style={{ color: 'white' }} />, title: "MongoDB", href: "" },
+    { node: <SiAmazon style={{ color: 'white' }} />, title: "AWS", href: "" },
+    { node: <SiDocker style={{ color: 'white' }} />, title: "Docker", href: "" },
+    { node: <SiVite style={{ color: 'white' }} />, title: "Vite", href: "" },
+    { node: <SiGit style={{ color: 'white' }} />, title: "Git", href: "" },
+    { node: <SiGithub style={{ color: 'white' }} />, title: "GitHub", href: "" },
+    { node: <SiGooglecloud style={{ color: 'white' }} />, title: "Google Cloud", href: "" },
+    { node: <SiResend style={{ color: 'white' }} />, title: "Resend API", href: "" },
   ];
 
   return (
     <Section id="skills" className="bg-background/50 relative">
-      {/* Animated Background (skills variant) */}
-      <AnimatedBackground variant="skills" />
-      
       <div className="relative z-10">
         <SectionHeading
           overline="Skills"
@@ -44,106 +56,71 @@ const Skills: React.FC = () => {
           centered
         />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skillCategories.map((category, categoryIndex) => {
-          const IconComponent = category.icon;
-          
-          return (
-            <Tilt key={category.title} className="h-full">
-              <Card className="h-full bg-glow">
-                <CardHeader className="text-center">
-                  <motion.div
-                    className="mx-auto mb-4 w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center"
-                    initial={{ scale: 0, rotate: -180 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: categoryIndex * 0.2,
-                      type: 'spring',
-                      stiffness: 200
-                    }}
-                  >
-                    <IconComponent className="h-6 w-6 text-primary" />
-                  </motion.div>
-                  
-                  <CardTitle className="text-xl mb-2">
-                    {category.title}
-                  </CardTitle>
-                  
-                  <p className="text-text-muted text-sm">
-                    {category.description}
-                  </p>
-                </CardHeader>
-                
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          duration: 0.3, 
-                          delay: categoryIndex * 0.2 + skillIndex * 0.05
-                        }}
-                      >
-                        <Badge variant="secondary" className="hover:bg-primary/20 hover:text-primary hover:border-primary/30 transition-all duration-200">
-                          {skill}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </Tilt>
-          );
-        })}
-      </div>
+        {/* LogoLoop for all technologies */}
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div style={{ height: '120px', position: 'relative', overflow: 'hidden' }}>
+            <LogoLoop
+              logos={techLogos}
+              speed={60}
+              direction="left"
+              logoHeight={48}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#0a0a0a"
+              ariaLabel="Technologies and tools I work with"
+            />
+          </div>
+        </motion.div>
 
-      {/* Stats section */}
-      <motion.div
-        className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        {[
-          { label: 'Languages', value: SITE.skills.languages.length },
-          { label: 'Frameworks', value: SITE.skills.frameworks.length },
-          { label: 'Tools', value: SITE.skills.apisTools.length },
-          { label: 'Projects', value: SITE.projects.length },
-        ].map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-          >
+        {/* Stats section */}
+        <motion.div
+          className="mt-20 grid grid-cols-3 gap-8 justify-center max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          {[
+            { label: 'Languages', value: SITE.skills.languages.length },
+            { label: 'Frameworks', value: SITE.skills.frameworks.length },
+            { label: 'Tools', value: SITE.skills.apisTools.length }
+          ].map((stat, index) => (
             <motion.div
-              className="text-3xl md:text-4xl font-bold text-gradient mb-2"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
+              key={stat.label}
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.8 + index * 0.1,
-                type: 'spring',
-                stiffness: 200
-              }}
+              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
             >
-              {stat.value}+
+              <motion.div
+                className="text-3xl md:text-4xl font-bold text-gradient mb-2"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 0.8 + index * 0.1,
+                  type: 'spring',
+                  stiffness: 200
+                }}
+              >
+                {stat.value}+
+              </motion.div>
+              <div className="text-text-muted text-sm">
+                {stat.label}
+              </div>
             </motion.div>
-            <div className="text-text-muted text-sm">
-              {stat.label}
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          ))}
+        </motion.div>
       </div>
     </Section>
   );
