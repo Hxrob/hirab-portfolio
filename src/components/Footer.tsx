@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <img 
-              src="/src/assets/Hirab-Name-Logo-White.png" 
+              src="/Hirab-Name-Logo-White.png" 
               alt={SITE.name}
               className="h-12 w-auto"
             />
