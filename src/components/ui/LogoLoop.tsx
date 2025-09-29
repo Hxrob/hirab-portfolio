@@ -149,6 +149,16 @@ const useAnimationLoop = (
       }
 
       const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      
+      // Throttle animation on mobile for better performance
+      const isMobileDevice = window.innerWidth <= 768;
+      const minFrameTime = isMobileDevice ? 1000 / 30 : 1000 / 60; // 30fps on mobile, 60fps on desktop
+      
+      if (deltaTime * 1000 < minFrameTime) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      
       lastTimestampRef.current = timestamp;
 
       // Determine target velocity based on current state
