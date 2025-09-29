@@ -148,17 +148,8 @@ const useAnimationLoop = (
         lastTimestampRef.current = timestamp;
       }
 
-      const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
-      
-      // Throttle animation on mobile for better performance
-      const isMobileDevice = window.innerWidth <= 768;
-      const minFrameTime = isMobileDevice ? 1000 / 30 : 1000 / 60; // 30fps on mobile, 60fps on desktop
-      
-      if (deltaTime * 1000 < minFrameTime) {
-        rafRef.current = requestAnimationFrame(animate);
-        return;
-      }
-      
+      const rawDt = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      const dt = Math.min(rawDt, 1/30); // clamp huge gaps to ~33ms
       lastTimestampRef.current = timestamp;
 
       // Determine target velocity based on current state
@@ -179,7 +170,7 @@ const useAnimationLoop = (
       if (!isDragging && isInertiaPhaseRef.current) {
         // Apply exponential decay to current velocity
         const decayFactorPerSecond = inertiaDecay;
-        const decayFactor = Math.pow(decayFactorPerSecond, deltaTime);
+        const decayFactor = Math.pow(decayFactorPerSecond, dt);
         velocityRef.current *= decayFactor;
 
         // Check if velocity is close enough to target to exit inertia phase
@@ -192,12 +183,12 @@ const useAnimationLoop = (
 
       // Apply normal easing when not in inertia phase
       if (!isInertiaPhaseRef.current && !isDragging) {
-        const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
+        const easingFactor = 1 - Math.exp(-dt / ANIMATION_CONFIG.SMOOTH_TAU);
         velocityRef.current += (target - velocityRef.current) * easingFactor;
       }
 
       if (seqWidth > 0) {
-        let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
+        let nextOffset = offsetRef.current + velocityRef.current * dt;
         nextOffset = ((nextOffset % seqWidth) + seqWidth) % seqWidth;
         offsetRef.current = nextOffset;
 
