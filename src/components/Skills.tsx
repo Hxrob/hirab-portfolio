@@ -14,9 +14,6 @@ import {
 } from 'react-icons/si';
 
 const Skills: React.FC = () => {
-  // Detect mobile for performance optimizations
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-  
   const techLogos = [
     // Languages
     { node: <SiTypescript style={{ color: 'white' }} />, title: "TypeScript", href: "" },
@@ -70,12 +67,12 @@ const Skills: React.FC = () => {
           <div style={{ height: '120px', position: 'relative', overflow: 'hidden' }}>
             <LogoLoop
               logos={techLogos}
-              speed={isMobile ? 40 : 60} // Slower on mobile for better performance
+              speed={60}
               direction="left"
-              logoHeight={isMobile ? 40 : 48} // Smaller on mobile
-              gap={isMobile ? 32 : 40} // Smaller gap on mobile
-              pauseOnHover={!isMobile} // Disable hover effects on mobile
-              scaleOnHover={!isMobile} // Disable scale hover on mobile
+              logoHeight={48}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
               fadeOut
               fadeOutColor="#0a0a0a"
               ariaLabel="Technologies and tools I work with"
