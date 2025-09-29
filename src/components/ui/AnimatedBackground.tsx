@@ -9,12 +9,14 @@ interface AnimatedBackgroundProps {
 }
 
 const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ variant = 'skills' }) => {
-  // Check for reduced motion preference
+  // Check for reduced motion preference and mobile device
   const prefersReducedMotion = typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
+  
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || isMobile) {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div

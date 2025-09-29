@@ -21,26 +21,34 @@ const Navbar: React.FC = () => {
   const allNavItems = [...leftNavItems, ...rightNavItems];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 50);
+    let ticking = false;
 
-      // Update active section based on scroll position
-      const sections = allNavItems.map(item => item.href.substring(1));
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          setIsScrolled(scrollY > 100);
+
+          // Update active section based on scroll position
+          const sections = allNavItems.map(item => item.href.substring(1));
+          
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 100 && rect.bottom >= 100) {
+                setActiveSection(section);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -56,14 +64,27 @@ const Navbar: React.FC = () => {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
-          isScrolled
-            ? 'bg-background/80 backdrop-blur-md border-b border-white/10'
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 w-full"
         initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        animate={{ 
+          opacity: 1, 
+          y: 0,
+          backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0)',
+          backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)',
+          borderBottomWidth: isScrolled ? '1px' : '0px',
+          borderBottomColor: isScrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0)'
+        }}
+        transition={{ 
+          opacity: { duration: 0.6, delay: 0.2 },
+          y: { duration: 0.6, delay: 0.2 },
+          backgroundColor: { duration: 0.3, ease: "easeInOut" },
+          backdropFilter: { duration: 0.3, ease: "easeInOut" },
+          borderBottomWidth: { duration: 0.3, ease: "easeInOut" },
+          borderBottomColor: { duration: 0.3, ease: "easeInOut" }
+        }}
+        style={{
+          borderBottomStyle: 'solid'
+        }}
       >
         <div className="section-container max-w-full">
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
