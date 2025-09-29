@@ -71,9 +71,8 @@ const Contact: React.FC = () => {
         >
           <div>
             <h3 className="text-2xl font-semibold text-text mb-6">Get in Touch</h3>
-            <p className="text-text-muted mb-8 leading-relaxed">
-              I'm always open to discussing new opportunities, interesting projects, 
-              or just having a chat about technology and development.
+            <p className="text-text-muted mb-8 leading-relaxed"> {/* TODO: size text to fit one line */}
+              Free to chat about technology and development, passion projects, and new opportunities!
             </p>
           </div>
 
@@ -212,8 +211,8 @@ const Contact: React.FC = () => {
                     size="lg"
                     className="w-full group"
                   >
-                    <Send className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
                     Send Message
+                    <Send className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Magnetic>
               </form>

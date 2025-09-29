@@ -43,7 +43,6 @@ const Projects: React.FC = () => {
         <SectionHeading
           overline="Projects"
           title="Featured Work"
-          subtitle="A selection of projects I have worked on recently"
           centered
         />
 
@@ -79,7 +78,7 @@ const Projects: React.FC = () => {
                 {/* Details pane */}
                 <div className="md:w-3/5 w-full flex flex-col justify-center py-8 md:py-0 gap-6">
                 {/* Title */}
-                <h3 className="text-4xl md:text-5xl font-semibold text-text leading-tight">
+                <h3 className="text-4xl md:text-4xl font-semibold text-text leading-tight">
                   {project.title}
                 </h3>
 
@@ -106,8 +105,8 @@ const Projects: React.FC = () => {
                       onClick={() => window.open((project.links as any).demo, '_blank')}
                       aria-label={`View live demo of ${project.title}`}
                     >
-                      <ExternalLink className="h-5 w-5 mr-2" />
                       Demo
+                      <ExternalLink className="h-5 w-5 ml-2" />
                     </Button>
                   )}
                   
@@ -135,7 +134,7 @@ const Projects: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <p className="text-text-muted mb-6 max-w-2xl mx-auto">
+          <p className="text-text-muted mb-6 pt-6 max-w-2xl mx-auto">
             Want to see more? Check out my GitHub for additional projects and contributions.
           </p>
           <Button

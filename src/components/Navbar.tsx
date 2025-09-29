@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import LogoWhite from '../assets/Hirab-Logo-White.png';
+import LogoWhite from '/Hirab-Logo-White.webp';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 pl-8 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
           isScrolled
             ? 'bg-background/80 backdrop-blur-md border-b border-white/10'
             : 'bg-transparent'

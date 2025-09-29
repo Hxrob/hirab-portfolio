@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
                 className="group"
               >
                 {SITE.intro.ctaPrimary.label}
-                <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+                
               </Button>
             </Magnetic>
             
@@ -144,7 +144,7 @@ const Hero: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/hero-image.JPEG"
+                src="/hero-image.webp"
                 alt={`${SITE.name} - Software Engineer & ML Enthusiast`}
                 className="w-full h-full object-cover"
               />
