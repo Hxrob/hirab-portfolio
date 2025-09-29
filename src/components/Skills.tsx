@@ -51,7 +51,7 @@ const Skills: React.FC = () => {
       <div className="relative z-10">
         <SectionHeading
           overline="Skills"
-          title="Technologies I Work With"
+          title="Technologies I Use"
           subtitle="A comprehensive toolkit for building modern applications"
           centered
         />

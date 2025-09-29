@@ -54,7 +54,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-text">
+    <div className="min-h-screen bg-background text-text overflow-x-hidden">
       {/* Navigation */}
       <Navbar />
 
@@ -113,8 +113,8 @@ function App() {
       {/* Background Elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         {/* Gradient orbs */}
-        <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-primary-hover/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 -translate-x-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 translate-x-1/2 w-96 h-96 bg-primary-hover/5 rounded-full blur-3xl" />
         <div className="absolute top-3/4 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/3 rounded-full blur-2xl" />
       </div>
     </div>

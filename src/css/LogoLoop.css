@@ -14,6 +14,31 @@
     padding-top: calc(var(--logoloop-logoHeight) * 0.1 + 10px);
     padding-bottom: calc(var(--logoloop-logoHeight) * 0.1 + 30px);
   }
+
+  .logoloop--draggable {
+    cursor: grab;
+  }
+
+  .logoloop--dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .logoloop--dragging .logoloop__link {
+    pointer-events: none;
+  }
+
+  /* Mobile-specific styles to ensure scrolling works */
+  @media (max-width: 768px) {
+    .logoloop {
+      touch-action: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .logoloop__track {
+      touch-action: auto !important;
+    }
+  }
   
   @media (prefers-color-scheme: dark) {
     .logoloop {

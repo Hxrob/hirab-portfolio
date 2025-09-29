@@ -33,6 +33,12 @@ export interface LogoLoopProps {
   ariaLabel?: string;
   className?: string;
   style?: React.CSSProperties;
+  // Drag-to-scroll props
+  draggable?: boolean;
+  dragSensitivity?: number;
+  inertiaDecay?: number;
+  maxDragVelocity?: number;
+  stopOnDrag?: boolean;
 }
 
 const ANIMATION_CONFIG = {
@@ -117,12 +123,16 @@ const useAnimationLoop = (
   targetVelocity: number,
   seqWidth: number,
   isHovered: boolean,
-  pauseOnHover: boolean
+  pauseOnHover: boolean,
+  isDragging: boolean,
+  stopOnDrag: boolean,
+  inertiaDecay: number
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
   const offsetRef = useRef(0);
   const velocityRef = useRef(0);
+  const isInertiaPhaseRef = useRef(false);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -141,10 +151,40 @@ const useAnimationLoop = (
       const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
       lastTimestampRef.current = timestamp;
 
-      const target = pauseOnHover && isHovered ? 0 : targetVelocity;
+      // Determine target velocity based on current state
+      let target: number;
+      if (isDragging && stopOnDrag) {
+        // During drag, stop auto-scrolling if stopOnDrag is true
+        target = 0;
+        isInertiaPhaseRef.current = false;
+      } else if (pauseOnHover && isHovered && !isDragging) {
+        // Hover pause (only when not dragging)
+        target = 0;
+        isInertiaPhaseRef.current = false;
+      } else {
+        target = targetVelocity;
+      }
 
-      const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
-      velocityRef.current += (target - velocityRef.current) * easingFactor;
+      // Handle inertia decay when not dragging but in inertia phase
+      if (!isDragging && isInertiaPhaseRef.current) {
+        // Apply exponential decay to current velocity
+        const decayFactorPerSecond = inertiaDecay;
+        const decayFactor = Math.pow(decayFactorPerSecond, deltaTime);
+        velocityRef.current *= decayFactor;
+
+        // Check if velocity is close enough to target to exit inertia phase
+        const velocityDiff = Math.abs(velocityRef.current - target);
+        const threshold = Math.abs(target) * 0.05 + 10; // 5% of target + minimum threshold
+        if (velocityDiff < threshold) {
+          isInertiaPhaseRef.current = false;
+        }
+      }
+
+      // Apply normal easing when not in inertia phase
+      if (!isInertiaPhaseRef.current && !isDragging) {
+        const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
+        velocityRef.current += (target - velocityRef.current) * easingFactor;
+      }
 
       if (seqWidth > 0) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
@@ -167,7 +207,10 @@ const useAnimationLoop = (
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, isHovered, pauseOnHover]);
+  }, [targetVelocity, seqWidth, isHovered, pauseOnHover, isDragging, stopOnDrag, inertiaDecay]);
+
+  // Return refs for drag handling
+  return { offsetRef, velocityRef, isInertiaPhaseRef };
 };
 
 export const LogoLoop = React.memo<LogoLoopProps>(
@@ -184,7 +227,13 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     scaleOnHover = false,
     ariaLabel = 'Partner logos',
     className,
-    style
+    style,
+    // Drag props with defaults
+    draggable = true,
+    dragSensitivity = 1.0,
+    inertiaDecay = 0.92,
+    maxDragVelocity: _maxDragVelocity = 2500, // Keep for API compatibility
+    stopOnDrag = true
   }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
@@ -193,6 +242,36 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const [seqWidth, setSeqWidth] = useState<number>(0);
     const [copyCount, setCopyCount] = useState<number>(ANIMATION_CONFIG.MIN_COPIES);
     const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [isDragging, setIsDragging] = useState<boolean>(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    // Drag-related refs
+    const isDraggingRef = useRef<boolean>(false);
+    const lastXRef = useRef<number>(0);
+    const lastTsRef = useRef<number | null>(null);
+    const dragStartXRef = useRef<number>(0);
+    const dragStartOffsetRef = useRef<number>(0);
+    const dragVelRef = useRef<number>(0);
+    const pointerIdRef = useRef<number | null>(null);
+    const hasMovedRef = useRef<boolean>(false);
+    const suppressClickRef = useRef<boolean>(false);
+
+    // Mobile detection
+    useEffect(() => {
+      const checkMobile = () => {
+        // More comprehensive mobile detection
+        const isMobileDevice = 
+          window.innerWidth <= 768 || 
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+          ('ontouchstart' in window) ||
+          (navigator.maxTouchPoints > 0);
+        setIsMobile(isMobileDevice);
+      };
+
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const targetVelocity = useMemo(() => {
       const magnitude = Math.abs(speed);
@@ -216,7 +295,16 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, isHovered, pauseOnHover);
+    const { offsetRef, velocityRef, isInertiaPhaseRef } = useAnimationLoop(
+      trackRef,
+      targetVelocity,
+      seqWidth,
+      isHovered,
+      pauseOnHover,
+      isDragging,
+      stopOnDrag,
+      inertiaDecay
+    );
 
     const cssVariables = useMemo(
       () =>
@@ -230,15 +318,122 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     const rootClassName = useMemo(
       () =>
-        ['logoloop', fadeOut && 'logoloop--fade', scaleOnHover && 'logoloop--scale-hover', className]
+        [
+          'logoloop',
+          fadeOut && 'logoloop--fade',
+          scaleOnHover && 'logoloop--scale-hover',
+          draggable && !isMobile && 'logoloop--draggable',
+          isDragging && 'logoloop--dragging',
+          className
+        ]
           .filter(Boolean)
           .join(' '),
-      [fadeOut, scaleOnHover, className]
+      [fadeOut, scaleOnHover, draggable, isDragging, isMobile, className]
     );
 
+    // Drag event handlers
+    const handlePointerDown = useCallback((e: React.PointerEvent) => {
+      if (!draggable || seqWidth <= 0 || isMobile) return;
+
+      e.preventDefault();
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Set pointer capture
+      container.setPointerCapture(e.pointerId);
+      pointerIdRef.current = e.pointerId;
+
+      // Initialize drag state
+      isDraggingRef.current = true;
+      setIsDragging(true);
+      dragStartXRef.current = e.clientX;
+      lastXRef.current = e.clientX;
+      dragStartOffsetRef.current = offsetRef.current;
+      lastTsRef.current = performance.now();
+      dragVelRef.current = 0;
+      hasMovedRef.current = false;
+
+      // Hard stop the auto velocity so it doesn't "coast" under the finger
+      velocityRef.current = 0;
+      isInertiaPhaseRef.current = false;
+
+      // Temporarily disable hover state during drag
+      if (isHovered) setIsHovered(false);
+    }, [draggable, seqWidth, isHovered, isMobile]);
+
+    const handlePointerMove = useCallback((e: React.PointerEvent) => {
+      if (!isDraggingRef.current || pointerIdRef.current !== e.pointerId) return;
+
+      e.preventDefault();
+
+      const currentX = e.clientX;
+      const currentTs = performance.now();
+      const dx = currentX - lastXRef.current;
+      const dt = currentTs - (lastTsRef.current || currentTs);
+
+      // Track if user has moved enough to consider this a drag
+      if (!hasMovedRef.current && Math.abs(dragStartXRef.current - currentX) > 3) {
+        hasMovedRef.current = true;
+      }
+
+      // Natural: left drag => negative translateX (content left)
+      const dragDelta = (dragStartXRef.current - currentX) * dragSensitivity;
+      offsetRef.current = dragStartOffsetRef.current + dragDelta;
+
+      // Wrap offset
+      if (seqWidth > 0) {
+        offsetRef.current = ((offsetRef.current % seqWidth) + seqWidth) % seqWidth;
+      }
+
+      // Apply transform immediately for responsiveness
+      const track = trackRef.current;
+      if (track) {
+        track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+      }
+
+      // Velocity is no longer used for momentum, but keep it updated harmlessly
+      if (dt > 0) {
+        const instantVel = (dx / dt) * 1000; // px/sec
+        dragVelRef.current = dragVelRef.current * 0.8 + instantVel * 0.2;
+      }
+
+      lastXRef.current = currentX;
+      lastTsRef.current = currentTs;
+    }, [dragSensitivity, seqWidth]);
+
+    const handlePointerUp = useCallback((e: React.PointerEvent) => {
+      if (!isDraggingRef.current || pointerIdRef.current !== e.pointerId) return;
+
+      const container = containerRef.current;
+      if (container) {
+        container.releasePointerCapture(e.pointerId);
+      }
+
+      // End drag state
+      isDraggingRef.current = false;
+      setIsDragging(false);
+      pointerIdRef.current = null;
+
+      // Static stop on release
+      velocityRef.current = 0;
+      isInertiaPhaseRef.current = false;
+      dragVelRef.current = 0;
+      lastTsRef.current = null;
+
+      // If there was any drag movement, suppress the ensuing click on links
+      if (hasMovedRef.current) {
+        suppressClickRef.current = true;
+        window.setTimeout(() => { suppressClickRef.current = false; }, 250);
+      }
+    }, []);
+
+    const handlePointerCancel = useCallback((e: React.PointerEvent) => {
+      handlePointerUp(e);
+    }, [handlePointerUp]);
+
     const handleMouseEnter = useCallback(() => {
-      if (pauseOnHover) setIsHovered(true);
-    }, [pauseOnHover]);
+      if (pauseOnHover && !isDragging) setIsHovered(true);
+    }, [pauseOnHover, isDragging]);
 
     const handleMouseLeave = useCallback(() => {
       if (pauseOnHover) setIsHovered(false);
@@ -316,10 +511,12 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const containerStyle = useMemo(
       (): React.CSSProperties => ({
         width: toCssLength(width) ?? '100%',
+        // On mobile, always allow default touch behavior for scrolling
+        touchAction: isMobile ? 'manipulation' : (draggable ? (isDragging ? 'none' : 'pan-x') : 'auto'),
         ...cssVariables,
         ...style
       }),
-      [width, cssVariables, style]
+      [width, draggable, isDragging, isMobile, cssVariables, style]
     );
 
     return (
@@ -331,6 +528,17 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         aria-label={ariaLabel}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onPointerDown={draggable && !isMobile ? handlePointerDown : undefined}
+        onPointerMove={draggable && !isMobile ? handlePointerMove : undefined}
+        onPointerUp={draggable && !isMobile ? handlePointerUp : undefined}
+        onPointerCancel={draggable && !isMobile ? handlePointerCancel : undefined}
+        onClickCapture={!isMobile ? (e) => {
+          // Block link activation if this interaction involved a drag
+          if (suppressClickRef.current || isDraggingRef.current) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        } : undefined}
       >
         <div className="logoloop__track" ref={trackRef}>
           {logoLists}

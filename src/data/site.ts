@@ -48,7 +48,7 @@ export const SITE = {
           github: "https://github.com/Hxrob/onepointfive",
           demo: "https://onepointfivehotel.com",
         },
-        image: "/images/onepointfive.jpeg",
+        image: "/images/onepointfive.webp",
       },
 
     {
@@ -59,7 +59,7 @@ export const SITE = {
       links: {
         github: "https://github.com/cis3296f24/01-HotSpot",
       },
-      image: "/images/hotspot.png",
+      image: "/images/hotspot.webp",
     },
     {
       title: "Piglet Prep",
@@ -70,7 +70,7 @@ export const SITE = {
         github: "https://github.com/Capstone-Projects-2025-Spring/project-piggyback-learning-team-1",
         demo: "https://pigletprep.vercel.app",
       },
-      image: "/images/pigletprep.jpeg",
+      image: "/images/pigletprep.webp",
     },
 
   ],
