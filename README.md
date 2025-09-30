@@ -1,15 +1,16 @@
 # Hirab Abdourazak - Portfolio Website
 
-A modern, responsive portfolio website built with React, TypeScript, Vite, and Tailwind CSS. Features smooth animations, interactive elements from ReactBits.dev, and a clean, professional design.
+A modern, responsive portfolio website built with React, TypeScript, Vite, and Tailwind CSS. Features smooth animations with Framer Motion and GSAP, interactive UI components, and a clean, professional design.
 
 ## 🚀 Features
 
-- **Modern Tech Stack**: React 18 + TypeScript + Vite + Tailwind CSS
-- **Interactive Animations**: Framer Motion with ReactBits-inspired effects:
-  - Typewriter text animation
-  - Tilt effects on cards
-  - Magnetic hover buttons
-  - Particle background system
+- **Modern Tech Stack**: React 19 + TypeScript + Vite + Tailwind CSS + Framer Motion + GSAP
+- **Interactive Animations**: Framer Motion and GSAP with custom effects:
+  - Typewriter text animation (TextType component)
+  - Magnetic hover effects (Magnetic component)
+  - Animated backgrounds and particles (AnimatedBackground)
+  - Logo animation loops (LogoLoop component)
+  - Dark veil overlay effects (DarkVeil component)
   - Smooth scroll animations
 - **Responsive Design**: Mobile-first approach with seamless desktop scaling
 - **Accessibility**: WCAG compliant with keyboard navigation and screen reader support
@@ -33,28 +34,42 @@ A modern, responsive portfolio website built with React, TypeScript, Vite, and T
 src/
 ├── components/           # React components
 │   ├── ui/              # Reusable UI components
-│   │   ├── Button.tsx
-│   │   ├── Card.tsx
-│   │   ├── Badge.tsx
-│   │   ├── SectionHeading.tsx
-│   │   ├── Typewriter.tsx
-│   │   ├── Tilt.tsx
-│   │   ├── Magnetic.tsx
-│   │   └── Particles.tsx
-│   ├── Navbar.tsx       # Navigation component
-│   ├── Hero.tsx         # Hero/intro section
-│   ├── Skills.tsx       # Skills showcase
-│   ├── Projects.tsx     # Project portfolio
+│   │   ├── AnimatedBackground.tsx  # Particle/animated backgrounds
+│   │   ├── Button.tsx             # Interactive button component
+│   │   ├── Card.tsx               # Card layout component
+│   │   ├── DarkVeil.tsx           # Dark overlay effects
+│   │   ├── LogoLoop.tsx           # Logo animation loop
+│   │   ├── Magnetic.tsx           # Magnetic hover effects
+│   │   ├── SectionHeading.tsx     # Section title component
+│   │   └── TextType.tsx           # Typewriter text animation
 │   ├── Contact.tsx      # Contact form & info
 │   ├── Footer.tsx       # Site footer
-│   └── Section.tsx      # Layout wrapper
+│   ├── Hero.tsx         # Hero/intro section
+│   ├── Navbar.tsx       # Navigation component
+│   ├── Projects.tsx     # Project portfolio
+│   ├── Section.tsx      # Layout wrapper
+│   └── Skills.tsx       # Skills showcase
+├── assets/              # Static assets
+│   ├── images/          # Project images
+│   │   ├── hotspot.png
+│   │   ├── onepointfive.jpeg
+│   │   └── pigletprep.jpeg
+│   ├── hero-image.JPEG  # Hero section image
+│   ├── Hirab-Logo-White.png       # Logo files
+│   ├── Hirab-Name-Logo-White.png
+│   └── react.svg
+├── css/                 # Additional CSS files
+│   ├── DarkVeil.css     # Dark veil component styles
+│   ├── LogoLoop.css     # Logo animation styles
+│   └── TextType.css     # Typewriter animation styles
 ├── data/
 │   └── site.ts          # All site content (EDIT THIS!)
 ├── lib/
 │   └── utils.ts         # Utility functions
 ├── App.tsx              # Main app component
 ├── main.tsx            # App entry point
-└── index.css           # Global styles & Tailwind
+├── index.css           # Global styles & Tailwind
+└── vite-env.d.ts       # Vite type definitions
 ```
 
 ## 🛠️ Quick Start
@@ -90,7 +105,7 @@ src/
 ### Available Scripts
 
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run build` - Build for production (includes TypeScript compilation)
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 
@@ -161,6 +176,18 @@ This creates a `dist/` folder with optimized production files.
 - **Traditional Hosting**: Upload `dist/` contents to your web server
 
 ## 🔧 Technical Details
+
+### Key Dependencies
+
+- **React 19**: Latest React with improved performance
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and dev server
+- **Tailwind CSS**: Utility-first CSS framework
+- **Framer Motion**: Smooth animations and transitions
+- **GSAP**: High-performance animations
+- **Lucide React**: Beautiful icon library
+- **React Icons**: Additional icon sets
+- **OGL**: WebGL library for advanced graphics
 
 ### Performance Optimizations
 
