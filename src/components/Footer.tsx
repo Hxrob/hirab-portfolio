@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <p className="text-text-muted text-sm flex items-center gap-2">
-            © {currentYear} Hirab Abdourazak. Made with lots of coffee.
+            ©{currentYear} Hirab Abdourazak. Made with lots of coffee.
           </p>
           
           <button
