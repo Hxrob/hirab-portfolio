@@ -71,7 +71,7 @@ const Contact: React.FC = () => {
         >
           <div>
             <h3 className="text-2xl font-semibold text-text mb-6">Get in Touch</h3>
-            <p className="text-text-muted mb-8 leading-relaxed"> {/* TODO: size text to fit one line */}
+            <p className="text-text-muted text-lg mb-8 leading-relaxed">
               Free to chat about technology and development, passion projects, and new opportunities!
             </p>
           </div>
