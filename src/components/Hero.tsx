@@ -147,6 +147,7 @@ const Hero: React.FC = () => {
                 src="/hero-image.webp"
                 alt={`${SITE.name} - Software Engineer & ML Enthusiast`}
                 className="w-full h-full object-cover"
+                fetchPriority="high"
               />
               {/* Subtle overlay for better text contrast */}
               <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
