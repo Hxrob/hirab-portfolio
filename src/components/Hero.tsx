@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, FileDown } from 'lucide-react';
 import { Section } from './Section';
 import { Button } from './ui/Button';
 import { Magnetic } from './ui/Magnetic';
@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex gap-4"
+            className="flex flex-wrap gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
@@ -99,6 +99,19 @@ const Hero: React.FC = () => {
             >
               {SITE.intro.ctaSecondary.label}
             </Button>
+
+            <Magnetic>
+              <motion.a
+                href="/Hirab_Abdourazak_2025.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 text-base rounded-xl font-medium border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FileDown className="h-5 w-5" />
+                Resume
+              </motion.a>
+            </Magnetic>
           </motion.div>
 
           {/* Social links */}
