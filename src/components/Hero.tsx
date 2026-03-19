@@ -81,15 +81,17 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 1 }}
           >
             <Magnetic>
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => handleScrollToSection(SITE.intro.ctaPrimary.href)}
-                className="group"
+              <motion.a
+                href={SITE.intro.ctaPrimary.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary-hover hover:opacity-90 text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
+                <Linkedin className="h-5 w-5" />
                 {SITE.intro.ctaPrimary.label}
-                
-              </Button>
+              </motion.a>
             </Magnetic>
             
             <Button
@@ -104,7 +106,7 @@ const Hero: React.FC = () => {
               <motion.a
                 href="/Hirab_Abdourazak_2025.pdf"
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 text-base rounded-xl font-medium border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
+                className="inline-flex items-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary/20 border border-primary/40 text-white hover:bg-primary/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

@@ -5,8 +5,8 @@ export const SITE = {
   intro: {
     headline: "Building reliable, delightful, intelligent apps.",
     subtext:
-      "Recent CS grad focused on SWE + ML/AI. I ship full-stack products, optimize performance, and love clean design.",
-    ctaPrimary: { label: "Contact Me", href: "#contact" },
+      "Recent CS grad focused on cloud, research, & ML/AI. I ship full-stack products, optimize performance, and love clean design.",
+    ctaPrimary: { label: "Let's Connect!", href: "https://www.linkedin.com/in/hirabdou" },
     ctaSecondary: { label: "View Projects", href: "#projects" },
   },
   socials: [
