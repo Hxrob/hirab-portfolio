@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
+import { Research } from './components/Research';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { SITE } from './data/site';
@@ -87,6 +88,16 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <Projects />
+        </motion.div>
+
+        {/* Research Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
+        >
+          <Research />
         </motion.div>
 
         {/* Contact Section */}
