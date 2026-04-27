@@ -74,6 +74,49 @@ export const SITE = {
     },
 
   ],
+  research: {
+    title:
+      "Associations Between Sleep Duration Across Development and Hippocampal Subfield Volumes at Midlife",
+    venue: "Society of Biological Psychiatry (SOBP)",
+    type: "Poster Presentation",
+    role: "First Author",
+    lab: "Ellman Lab · Temple University · Healthy Brains Project",
+    summary:
+      "A neuroimaging study (n = 91) examining how childhood and midlife sleep patterns relate to hippocampal subfield volumes in adulthood — using FreeSurfer-based volumetric segmentation and partial correlations controlled for intracranial volume.",
+    coAuthors: [
+      "Stephanie A. Korenic",
+      "Ann M. Kring",
+      "Raana Mohyee",
+      "Ian Ballard",
+      "Bhakti Patwardhan",
+      "Savannah Cookson",
+      "Kathleen J. O'Brien",
+      "Blake L. Elliott",
+      "Ingrid A. Olson",
+      "Barbara A. Cohn",
+      "Piera M. Cirillo",
+      "Nickilou Y. Krigbaum",
+      "Thomas M. Olino",
+      "Mark T. D'Esposito",
+      "Ashby B. Cogan",
+      "Lauren M. Ellman",
+    ],
+    highlights: [
+      { label: "Cohort size", value: "n = 91" },
+      { label: "Methods", value: "MRI · FreeSurfer" },
+      { label: "Domain", value: "Sleep × Hippocampus" },
+    ],
+    findings: [
+      "Poorer early-life sleep correlated with reduced hippocampal CA3 subfield volumes at midlife.",
+      "Poorer midlife sleep was associated with reduced fimbria volumes — controlling for intracranial volume.",
+      "Findings suggest differential, lifespan-dependent influences of sleep on hippocampal microstructure.",
+    ],
+    poster: {
+      preview: "/research/poster-preview.jpg",
+      pdf: "/research/SOBP_Abdourazak_Korenic_Poster.pdf",
+      filename: "Abdourazak_SOBP_Hippocampus_Poster.pdf",
+    },
+  },
   contact: {
     blurb:
       "Interested in SWE/ML roles or collaborations. I'm open to internships, new-grad roles, and contract work!",

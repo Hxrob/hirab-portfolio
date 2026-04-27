@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 
   const rightNavItems = [
     { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Research', href: '#research' },
   ];
 
   const allNavItems = [...leftNavItems, ...rightNavItems];
