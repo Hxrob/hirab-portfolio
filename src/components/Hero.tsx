@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
                 href={SITE.intro.ctaPrimary.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary-hover hover:opacity-90 text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary-hover hover:opacity-90 text-white hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
