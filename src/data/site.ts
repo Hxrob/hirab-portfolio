@@ -40,6 +40,17 @@ export const SITE = {
   },
   projects: [
     {
+      title: "SparX",
+      description:
+        "A private, locally-run AI social worker designed to give underserved communities in New York City secure, equitable access to government resources and services. Built at the NVIDIA Spark Hack Series in NYC.",
+      tags: ["React.js", "Resend", "Google Cloud", "Vercel"],
+      links: {
+        github: "https://github.com/Hxrob/sparx",
+      },
+      image: "/images/sparx.webp",
+    },
+
+    {
         title: "One Point Five",
         description:
           "A client-focused real estate website designed to showcase property listings with a sleek, responsive UI.",
