@@ -11,7 +11,12 @@ import {
   SiGooglecloud,
   SiOpenai,
   SiAmazon,
-  SiGooglemaps
+  SiGooglemaps,
+  SiPython,
+  SiFastapi,
+  SiNvidia,
+  SiPytorch,
+  SiOllama
 } from 'react-icons/si';
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
@@ -31,7 +36,12 @@ const Projects: React.FC = () => {
     'OpenAI API': <SiOpenai className="w-6 h-6 text-white" />,
     'Rekognition': <SiAmazon className="w-6 h-6 text-[#FF9900]" />,
     'Google Maps API': <SiGooglemaps className="w-6 h-6 text-[#4285F4]" />,
-    'Resend': <ExternalLink className="w-6 h-6 text-primary" />
+    'Resend': <ExternalLink className="w-6 h-6 text-primary" />,
+    'Python': <SiPython className="w-6 h-6 text-[#3776AB]" />,
+    'FastAPI': <SiFastapi className="w-6 h-6 text-[#009688]" />,
+    'NVIDIA NeMo': <SiNvidia className="w-6 h-6 text-[#76B900]" />,
+    'PyTorch': <SiPytorch className="w-6 h-6 text-[#EE4C2C]" />,
+    'Ollama': <SiOllama className="w-6 h-6 text-white" />
   };
 
   return (

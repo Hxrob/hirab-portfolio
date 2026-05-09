@@ -43,7 +43,7 @@ export const SITE = {
       title: "SparX",
       description:
         "A private, locally-run AI social worker designed to give underserved communities in New York City secure, equitable access to government resources and services. Built at the NVIDIA Spark Hack Series in NYC.",
-      tags: ["React.js", "Resend", "Google Cloud", "Vercel"],
+      tags: ["Python", "FastAPI", "NVIDIA NeMo", "PyTorch", "Ollama"],
       links: {
         github: "https://github.com/Hxrob/sparx",
       },
