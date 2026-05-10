@@ -60,7 +60,7 @@ const Research: React.FC = () => {
 
         {/* Editorial card */}
         <motion.article
-          className="relative mx-auto max-w-6xl"
+          className="relative mx-auto max-w-[84rem]"
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -84,13 +84,13 @@ const Research: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-12 gap-0">
+            <div className="grid gap-0 lg:grid-cols-12">
               {/* Poster preview */}
-              <div className="relative md:col-span-7 p-6 md:p-10 md:border-r border-white/10">
+              <div className="relative p-6 md:p-10 lg:col-span-8 lg:border-r border-white/10">
                 <motion.button
                   type="button"
                   onClick={() => setIsOpen(true)}
-                  className="group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40"
+                  className="group relative flex w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40"
                   whileHover={{ scale: 1.005 }}
                   whileTap={{ scale: 0.995 }}
                   aria-label="Open full poster preview"
@@ -98,7 +98,7 @@ const Research: React.FC = () => {
                   <img
                     src={research.poster.preview}
                     alt={`Poster preview: ${research.title}`}
-                    className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="block w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     loading="lazy"
                   />
                   {/* Hover scrim */}
@@ -116,7 +116,7 @@ const Research: React.FC = () => {
               </div>
 
               {/* Details */}
-              <div className="md:col-span-5 p-6 md:p-10 flex flex-col gap-7">
+              <div className="p-6 md:p-10 lg:col-span-4 flex flex-col gap-7">
                 {/* Venue */}
                 <div>
                   <div className="text-[11px] uppercase tracking-[0.22em] text-text-muted mb-2">
@@ -280,7 +280,7 @@ const Research: React.FC = () => {
                 <img
                   src={research.poster.preview}
                   alt={`Full poster: ${research.title}`}
-                  className="w-full h-auto object-contain"
+                  className="mx-auto max-h-[calc(100vh-7rem)] w-full h-auto object-contain"
                 />
               </div>
             </motion.div>
