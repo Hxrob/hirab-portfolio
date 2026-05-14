@@ -33,6 +33,10 @@ const Footer: React.FC = () => {
               src="/Hirab-Name-Logo-White.webp" 
               alt={SITE.name}
               className="h-12 w-auto"
+              width={4782}
+              height={1134}
+              loading="lazy"
+              decoding="async"
             />
             <p className="text-text-muted text-sm leading-relaxed">
               {SITE.role} based in {SITE.location}. Building the future one line of code at a time.

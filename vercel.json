@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "images": {
+    "sizes": [320, 640, 960, 1280, 1600, 2048],
+    "localPatterns": [
+      {
+        "pathname": "^/.*$",
+        "search": ""
+      }
+    ],
+    "minimumCacheTTL": 300,
+    "qualities": [60, 72, 80],
+    "formats": ["image/avif", "image/webp"],
+    "dangerouslyAllowSVG": false,
+    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+    "contentDispositionType": "inline"
+  }
+}

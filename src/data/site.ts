@@ -48,6 +48,8 @@ export const SITE = {
         github: "https://github.com/Hxrob/sparx",
       },
       image: "/images/sparx.webp",
+      imageWidth: 3024,
+      imageHeight: 1810,
     },
 
     {
@@ -60,6 +62,8 @@ export const SITE = {
           demo: "https://onepointfivehotel.com",
         },
         image: "/images/onepointfive.webp",
+        imageWidth: 3477,
+        imageHeight: 2081,
       },
 
     {
@@ -71,6 +75,8 @@ export const SITE = {
         github: "https://github.com/cis3296f24/01-HotSpot",
       },
       image: "/images/hotspot.webp",
+      imageWidth: 2945,
+      imageHeight: 1729,
     },
     {
       title: "Piglet Prep",
@@ -82,6 +88,8 @@ export const SITE = {
         demo: "https://pigletprep.vercel.app",
       },
       image: "/images/pigletprep.webp",
+      imageWidth: 3475,
+      imageHeight: 2081,
     },
 
   ],
@@ -126,6 +134,8 @@ export const SITE = {
       preview: "/research/poster-preview.jpg",
       pdf: "/research/SOBP_Abdourazak_Korenic_Poster.pdf",
       filename: "Abdourazak_SOBP_Hippocampus_Poster.pdf",
+      previewWidth: 1600,
+      previewHeight: 1200,
     },
   },
   contact: {
