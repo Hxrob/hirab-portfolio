@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
@@ -82,6 +84,9 @@ function App() {
         <div className="absolute bottom-1/4 right-0 translate-x-1/2 w-96 h-96 bg-primary-hover/5 rounded-full blur-3xl" />
         <div className="absolute top-3/4 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/3 rounded-full blur-2xl" />
       </div>
+
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
