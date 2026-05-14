@@ -88,6 +88,11 @@
   .overflow-x-hidden {
     overflow-x: hidden !important;
   }
+
+  .deferred-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+  }
 }
 
 /* Mobile scrolling fixes */

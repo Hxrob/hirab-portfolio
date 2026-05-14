@@ -47,7 +47,7 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <Section id="skills" className="bg-background/50 relative">
+    <Section id="skills" className="bg-background/50 relative deferred-section">
       <div className="relative z-10">
         <SectionHeading
           overline="Skills"

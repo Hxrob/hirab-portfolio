@@ -50,7 +50,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <Section id="projects" className="relative">
+    <Section id="projects" className="relative deferred-section">
       {/* Animated Background (projects variant) */}
       <AnimatedBackground variant="projects" />
 

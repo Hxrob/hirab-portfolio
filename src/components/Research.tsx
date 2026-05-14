@@ -37,7 +37,7 @@ const Research: React.FC = () => {
   }, [isOpen]);
 
   return (
-    <Section id="research" className="relative">
+    <Section id="research" className="relative deferred-section">
       {/* Bespoke background — dotted grid + soft horizon glow, scholarly tone */}
       <div className="absolute inset-0 -z-0 overflow-hidden pointer-events-none">
         <div

@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <Section id="contact" className="bg-background/50 relative">
+    <Section id="contact" className="bg-background/50 relative deferred-section">
       {/* Animated Background (contact variant) */}
       <AnimatedBackground variant="contact" />
       

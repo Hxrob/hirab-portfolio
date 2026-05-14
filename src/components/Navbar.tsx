@@ -3,53 +3,61 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import LogoWhite from '/Hirab-Logo-White.webp';
 
+const leftNavItems = [
+  { label: 'Home', href: '#intro' },
+  { label: 'Skills', href: '#skills' },
+];
+
+const rightNavItems = [
+  { label: 'Projects', href: '#projects' },
+  { label: 'Research', href: '#research' },
+];
+
+const allNavItems = [...leftNavItems, ...rightNavItems];
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('intro');
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const leftNavItems = [
-    { label: 'Home', href: '#intro' },
-    { label: 'Skills', href: '#skills' },
-  ];
-
-  const rightNavItems = [
-    { label: 'Projects', href: '#projects' },
-    { label: 'Research', href: '#research' },
-  ];
-
-  const allNavItems = [...leftNavItems, ...rightNavItems];
-
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          setIsScrolled(scrollY > 100);
-
-          // Update active section based on scroll position
-          const sections = allNavItems.map(item => item.href.substring(1));
-          
-          for (const section of sections) {
-            const element = document.getElementById(section);
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              if (rect.top <= 100 && rect.bottom >= 100) {
-                setActiveSection(section);
-                break;
-              }
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setIsScrolled(window.scrollY > 100);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = allNavItems
+      .map(item => document.getElementById(item.href.substring(1)))
+      .filter((section): section is HTMLElement => section !== null);
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const nextActiveSection = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+          ?.target.id;
+
+        if (nextActiveSection) {
+          setActiveSection(nextActiveSection);
+        }
+      },
+      {
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: [0.15, 0.35, 0.6],
+      }
+    );
+
+    sections.forEach(section => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   const handleScrollToSection = (href: string) => {
@@ -103,6 +111,9 @@ const Navbar: React.FC = () => {
                   src={LogoWhite}
                   alt="Hirab Abdourazak Logo"
                   className="w-full h-full object-contain"
+                  width={1065}
+                  height={1080}
+                  decoding="async"
                 />
               </div>
             </motion.button>
@@ -167,6 +178,9 @@ const Navbar: React.FC = () => {
                       src={LogoWhite}
                       alt="Hirab Abdourazak Logo"
                       className="w-full h-full object-contain"
+                      width={1065}
+                      height={1080}
+                      decoding="async"
                     />
                   </div>
                 </motion.button>
