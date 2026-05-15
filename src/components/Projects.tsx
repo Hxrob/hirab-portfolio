@@ -23,6 +23,11 @@ import { SectionHeading } from './ui/SectionHeading';
 import { Button } from './ui/Button';
 import { AnimatedBackground } from './ui/AnimatedBackground';
 import { SITE } from '../data/site';
+import { getOptimizedImageUrl, getOptimizedSrcSet } from '../lib/vercelImage';
+
+const PROJECT_IMAGE_WIDTHS = [480, 768, 1024, 1440];
+const PROJECT_IMAGE_SIZES =
+  '(min-width: 1280px) 34vw, (min-width: 768px) 40vw, 92vw';
 
 const Projects: React.FC = () => {
   const techIcons: Record<string, React.ReactElement> = {
@@ -76,7 +81,9 @@ const Projects: React.FC = () => {
                 <div className="relative md:w-2/5 w-full flex-shrink-0 flex items-center justify-center">
                   {project.image ? (
                     <img
-                      src={project.image}
+                      src={getOptimizedImageUrl(project.image, 1024, 68)}
+                      srcSet={getOptimizedSrcSet(project.image, PROJECT_IMAGE_WIDTHS, 68)}
+                      sizes={PROJECT_IMAGE_SIZES}
                       alt={project.title}
                       className="w-full h-auto object-contain rounded-lg"
                       width={project.imageWidth}
