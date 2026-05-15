@@ -13,11 +13,6 @@ import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
 import { Button } from './ui/Button';
 import { SITE } from '../data/site';
-import { getOptimizedImageUrl, getOptimizedSrcSet } from '../lib/vercelImage';
-
-const RESEARCH_IMAGE_WIDTHS = [640, 960, 1200, 1600];
-const RESEARCH_IMAGE_SIZES =
-  '(min-width: 1280px) 60vw, (min-width: 1024px) 54vw, 92vw';
 
 const Research: React.FC = () => {
   const research = SITE.research;
@@ -101,13 +96,7 @@ const Research: React.FC = () => {
                   aria-label="Open full poster preview"
                 >
                   <img
-                    src={getOptimizedImageUrl(research.poster.preview, 1200, 68)}
-                    srcSet={getOptimizedSrcSet(
-                      research.poster.preview,
-                      RESEARCH_IMAGE_WIDTHS,
-                      68
-                    )}
-                    sizes={RESEARCH_IMAGE_SIZES}
+                    src={research.poster.preview}
                     alt={`Poster preview: ${research.title}`}
                     className="block w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                     width={research.poster.previewWidth}
@@ -292,13 +281,7 @@ const Research: React.FC = () => {
               </div>
               <div className="rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl shadow-primary/10">
                 <img
-                  src={getOptimizedImageUrl(research.poster.preview, 1600, 72)}
-                  srcSet={getOptimizedSrcSet(
-                    research.poster.preview,
-                    RESEARCH_IMAGE_WIDTHS,
-                    72
-                  )}
-                  sizes="100vw"
+                  src={research.poster.preview}
                   alt={`Full poster: ${research.title}`}
                   className="mx-auto max-h-[calc(100vh-7rem)] w-full h-auto object-contain"
                   width={research.poster.previewWidth}
