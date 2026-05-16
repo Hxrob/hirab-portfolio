@@ -1,6 +1,6 @@
 // api/chat.ts
 
-import { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const PROFILE_CONTEXT = `
 You are Hirab Abdourazak's portfolio assistant. 
