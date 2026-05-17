@@ -8,6 +8,7 @@ import { Projects } from './components/Projects';
 import { Research } from './components/Research';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { ChatWidget } from './components/ChatWidget';
 
 function App() {
   return (
@@ -87,6 +88,7 @@ function App() {
 
       <Analytics />
       <SpeedInsights />
+      <ChatWidget />
     </div>
   );
 }
