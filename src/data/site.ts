@@ -38,6 +38,67 @@ export const SITE = {
       "Resend",
     ],
   },
+  experience: [
+    {
+      role: "Research Assistant",
+      organization: "Temple HCI Lab",
+      location: "Philadelphia, PA",
+      period: "Jan 2026 - Present",
+      focus: "Human-computer interaction research tooling",
+      summary:
+        "Co-developing a web-based study platform that supports data collection for a human-computer interaction research study.",
+      highlights: [
+        "Engineered an HTML/Python data logging system that captured and persisted 100% of participant code-guessing interactions.",
+        "Rapidly prototyped and deployed experiment interfaces that made lab-trial data collection smoother and more reliable.",
+        "Built research-facing workflows with attention to participant experience, reproducible logging, and clean handoff to analysis.",
+      ],
+      tools: ["HTML", "Python", "Study tooling", "Data logging"],
+      metrics: [
+        { label: "Interaction capture", value: "100%" },
+        { label: "Domain", value: "HCI research" },
+      ],
+    },
+    {
+      role: "Software Engineer",
+      organization: "Freelance",
+      location: "Remote",
+      period: "Jun 2025 - Dec 2025",
+      focus: "Client websites, serverless workflows, and integrations",
+      summary:
+        "Built production websites and automated workflows for clients, turning Figma prototypes into responsive full-stack experiences.",
+      highlights: [
+        "Built Next.js and TypeScript websites from Figma prototypes, boosting user engagement by 15%.",
+        "Engineered and maintained serverless APIs for form submissions and notifications, eliminating manual data entry.",
+        "Integrated 10+ third-party services for notifications, email, and client functionality while keeping credentials protected.",
+      ],
+      tools: ["Next.js", "TypeScript", "Figma", "Serverless APIs", "Resend"],
+      metrics: [
+        { label: "Engagement lift", value: "15%" },
+        { label: "Manual entry", value: "0%" },
+        { label: "Integrations", value: "10+" },
+      ],
+    },
+    {
+      role: "Research Assistant",
+      organization: "Temple University",
+      location: "Philadelphia, PA",
+      period: "Mar 2022 - Aug 2025",
+      focus: "Neuroimaging pipelines, MRI processing, and ML analysis",
+      summary:
+        "Supported large-scale neuroimaging analysis through automated processing pipelines, volumetric data workflows, and machine learning models.",
+      highlights: [
+        "Engineered a Bash/Python MRI processing pipeline with automated QC gates, reducing manual review time by 60% across 100+ scans.",
+        "Managed volumetric data pipelines for a first-author neuroimaging study presented at the 2024 SOBP Conference.",
+        "Built PyTorch deep learning models and Pandas workflows to analyze large-scale neuroimaging datasets.",
+      ],
+      tools: ["Python", "Bash", "PyTorch", "Pandas", "MRI", "FreeSurfer"],
+      metrics: [
+        { label: "Review time reduced", value: "60%" },
+        { label: "MRI scans", value: "100+" },
+        { label: "Conference", value: "SOBP" },
+      ],
+    },
+  ],
   projects: [
     {
       title: "SparX",

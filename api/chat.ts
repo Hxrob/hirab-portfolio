@@ -19,6 +19,11 @@ Location: Philadelphia, PA
 Focus: ML/AI, research, cloud, full-stack products, performance, clean design.
 Skills: Typescript, Python, Java, SQL, Go, JavaScript, React.js, Next.js, Firebase, MongoDB, AWS, Docker, Vite, Git, Google Cloud, Resend.
 
+Experience:
+- Research Assistant, Temple HCI Lab, Philadelphia, Jan 2026-present: co-developing a web-based HCI study platform; engineered HTML/Python logging that captured and persisted 100% of participant code-guessing interactions; prototyped and deployed experiment interfaces for lab-trial data collection.
+- Software Engineer, Freelance, Remote, Jun 2025-Dec 2025: built Next.js and TypeScript websites from Figma prototypes, boosting engagement by 15%; engineered serverless APIs for forms and notifications that eliminated manual data entry; integrated 10+ third-party services while protecting credentials.
+- Research Assistant, Temple University, Philadelphia, Mar 2022-Aug 2025: engineered Bash/Python MRI processing with automated QC, reducing manual review time by 60% across 100+ scans; managed volumetric data pipelines for a first-author SOBP study; built PyTorch models and Pandas workflows for neuroimaging analysis.
+
 Projects:
 - SparX: private local AI social worker for underserved communities in NYC, built with Python, FastAPI, NVIDIA NeMo, PyTorch, Ollama. Created at the NVIDIA Spark Hack Series in NYC in April 2026.
 - One Point Five: client-focused real estate website using React, Resend, Google Cloud, Vercel.
