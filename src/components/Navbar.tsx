@@ -6,6 +6,7 @@ import LogoWhite from '/Hirab-Logo-White.webp';
 const leftNavItems = [
   { label: 'Home', href: '#intro' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
 ];
 
 const rightNavItems = [
@@ -134,7 +135,7 @@ const Navbar: React.FC = () => {
             <div className="hidden md:flex items-center justify-center flex-1">
               <div className="flex items-center gap-12">
                 {/* Left Navigation Items */}
-                <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-6 lg:space-x-8">
                   {leftNavItems.map((item, index) => (
                     <motion.button
                       key={item.label}
@@ -186,7 +187,7 @@ const Navbar: React.FC = () => {
                 </motion.button>
 
                 {/* Right Navigation Items */}
-                <div className="flex items-center space-x-8">
+                <div className="flex items-center space-x-6 lg:space-x-8">
                   {rightNavItems.map((item, index) => (
                     <motion.button
                       key={item.label}

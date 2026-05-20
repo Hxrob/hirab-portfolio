@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
+import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Research } from './components/Research';
 import { Contact } from './components/Contact';
@@ -35,6 +36,16 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <Skills />
+        </motion.div>
+
+        {/* Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
+        >
+          <Experience />
         </motion.div>
 
         {/* Projects Section */}
