@@ -14,8 +14,8 @@ interface ChatMessage {
 
 const starterPrompts = [
   'What roles is Hirab looking for?',
-  'Summarize his ML experience.',
-  'Tell me about Piglet Prep.',
+  'What does Hirab do outside work?',
+  'What is Hirab learning lately?',
 ];
 
 const initialMessages: ChatMessage[] = [
@@ -23,7 +23,7 @@ const initialMessages: ChatMessage[] = [
     id: 'welcome',
     role: 'assistant',
     content:
-      "Hey, I'm Hirabot. Ask me about Hirab's projects, research, skills, or how to contact him.",
+      "Hey, I'm Hirabot. Ask me about Hirab's work, projects, research, hobbies, goals, or how to contact him.",
   },
 ];
 
@@ -130,7 +130,7 @@ export function ChatWidget() {
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold leading-tight text-text">Hirabot</h2>
-                  <p className="text-xs text-text-muted">Portfolio guide for Hirab Abdourazak</p>
+                  <p className="text-xs text-text-muted">Work, projects, and personality</p>
                 </div>
               </div>
               <button
@@ -204,7 +204,7 @@ export function ChatWidget() {
                   ref={inputRef}
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder="Ask Hirabot anything..."
+                  placeholder="Ask about work, hobbies, goals..."
                   className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-[#05050c] px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-text-muted focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
                   disabled={isLoading}
                 />
