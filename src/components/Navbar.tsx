@@ -12,6 +12,7 @@ const leftNavItems = [
 const rightNavItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Research', href: '#research' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 const allNavItems = [...leftNavItems, ...rightNavItems];
