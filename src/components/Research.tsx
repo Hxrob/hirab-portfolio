@@ -12,6 +12,7 @@ import {
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
 import { Button } from './ui/Button';
+import { Corners } from './ui/Corners';
 import { SITE } from '../data/site';
 import { getOptimizedImageUrl, getOptimizedSrcSet } from '../lib/vercelImage';
 
@@ -38,13 +39,13 @@ const Research: React.FC = () => {
 
   return (
     <Section id="research" className="relative deferred-section">
-      {/* Bespoke background — dotted grid + soft horizon glow, scholarly tone */}
+      {/* Dotted-grid backdrop */}
       <div className="absolute inset-0 -z-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 opacity-[0.18]"
+          className="absolute inset-0 opacity-[0.16]"
           style={{
             backgroundImage:
-              'radial-gradient(rgba(139,92,246,0.35) 1px, transparent 1px)',
+              'radial-gradient(rgba(200,245,66,0.3) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
             maskImage:
               'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
@@ -52,18 +53,17 @@ const Research: React.FC = () => {
               'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)',
           }}
         />
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
 
       <div className="relative z-10">
         <SectionHeading
-          overline="Research"
-          title="Selected Publication"
-          centered
+          index="03"
+          overline="Publications"
+          title="Selected Research"
         />
 
-        {/* Editorial card */}
+        {/* Dossier card */}
         <motion.article
           className="relative mx-auto max-w-[84rem]"
           initial={{ opacity: 0, y: 32 }}
@@ -71,19 +71,19 @@ const Research: React.FC = () => {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
         >
-          {/* Card frame */}
-          <div className="relative rounded-[28px] border border-white/10 bg-surface/40 backdrop-blur-md overflow-hidden">
+          <div className="relative border border-white/10 bg-surface/40 backdrop-blur-md overflow-hidden">
+            <Corners />
             {/* Top meta strip */}
             <div className="flex flex-wrap items-center justify-between gap-3 px-6 md:px-10 pt-6 pb-4 border-b border-white/10">
-              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-text-muted">
+              <div className="flex items-center gap-3 hud-label">
                 <span className="inline-flex items-center gap-2 text-primary">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="w-1.5 h-1.5 bg-primary animate-blink" />
                   {research.type}
                 </span>
                 <span className="text-white/20">/</span>
                 <span>{research.role}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-text-muted">
+              <div className="flex items-center gap-2 hud-label">
                 <GraduationCap className="w-3.5 h-3.5 text-primary" />
                 <span>Neuroscience · Psychology</span>
               </div>
@@ -95,8 +95,7 @@ const Research: React.FC = () => {
                 <motion.button
                   type="button"
                   onClick={() => setIsOpen(true)}
-                  className="group relative flex w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/40"
-                  whileHover={{ scale: 1.005 }}
+                  className="group relative flex w-full items-center justify-center overflow-hidden border border-white/10 bg-black/40"
                   whileTap={{ scale: 0.995 }}
                   aria-label="Open full poster preview"
                 >
@@ -117,12 +116,12 @@ const Research: React.FC = () => {
                   />
                   {/* Hover scrim */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-background/80 backdrop-blur-md border border-white/15 px-4 py-2 text-xs text-text translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-background/80 backdrop-blur-md border border-white/15 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-text translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <ZoomIn className="w-3.5 h-3.5 text-primary" />
-                    Click to expand
+                    Expand
                   </div>
                   {/* Corner ornament */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-background/70 backdrop-blur-md border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-text-muted">
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-background/70 backdrop-blur-md border border-white/10 px-3 py-1 hud-label">
                     <FileText className="w-3 h-3 text-primary" />
                     Poster
                   </div>
@@ -133,42 +132,36 @@ const Research: React.FC = () => {
               <div className="p-6 md:p-10 lg:col-span-4 flex flex-col gap-7">
                 {/* Venue */}
                 <div>
-                  <div className="text-[11px] uppercase tracking-[0.22em] text-text-muted mb-2">
-                    Presented at
-                  </div>
+                  <div className="hud-label mb-2">Presented at</div>
                   <div className="text-text font-semibold text-lg leading-snug">
                     {research.venue}
                   </div>
-                  <div className="text-text-muted text-sm mt-1">
+                  <div className="font-mono text-xs text-text-muted mt-1.5">
                     {research.lab}
                   </div>
                 </div>
 
-                {/* Title — editorial display treatment */}
-                <h3 className="text-2xl md:text-[1.65rem] leading-[1.2] font-semibold text-text">
-                  <span className="bg-gradient-to-br from-white via-white to-white/70 bg-clip-text text-transparent">
-                    {research.title}
-                  </span>
+                {/* Title */}
+                <h3 className="text-xl md:text-2xl leading-[1.25] font-semibold text-text">
+                  {research.title}
                 </h3>
 
                 {/* Summary */}
-                <p className="text-text-muted text-[0.97rem] leading-relaxed border-l-2 border-primary/40 pl-4">
+                <p className="font-mono text-xs text-text-muted leading-relaxed border-l border-primary/40 pl-4">
                   {research.summary}
                 </p>
 
-                {/* Highlights */}
-                <div className="grid grid-cols-3 gap-2 md:gap-3">
+                {/* Highlights — spec table */}
+                <div className="border border-white/10 bg-white/[0.02] divide-y divide-white/10">
                   {research.highlights.map((h) => (
                     <div
                       key={h.label}
-                      className="rounded-xl border border-white/10 bg-white/[0.02] px-3 py-3 min-w-0"
+                      className="flex items-baseline justify-between gap-4 px-4 py-3"
                     >
-                      <div className="text-[10px] uppercase tracking-[0.14em] text-text-muted mb-1.5 truncate">
-                        {h.label}
-                      </div>
-                      <div className="text-text text-[0.8rem] md:text-sm font-medium leading-tight break-words">
+                      <span className="hud-label whitespace-nowrap">{h.label}</span>
+                      <span className="font-mono text-xs text-text font-medium text-right">
                         {h.value}
-                      </div>
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -179,7 +172,6 @@ const Research: React.FC = () => {
                     variant="primary"
                     size="md"
                     onClick={() => setIsOpen(true)}
-                    aria-label="Preview poster"
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     Preview
@@ -187,17 +179,17 @@ const Research: React.FC = () => {
                   <a
                     href={research.poster.pdf}
                     download={research.poster.filename}
-                    className="inline-flex items-center justify-center font-medium px-6 py-3 text-base rounded-xl border border-white/20 hover:border-primary/60 text-text hover:bg-primary/10 transition-all duration-200"
+                    className="inline-flex items-center justify-center px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] border border-white/20 text-text hover:border-primary/60 hover:text-primary transition-colors duration-200"
                     aria-label="Download poster PDF"
                   >
                     <Download className="w-4 h-4 mr-2" />
-                    Download PDF
+                    Download
                   </a>
                   <a
                     href={research.poster.pdf}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center font-medium px-5 py-3 text-sm rounded-xl text-text-muted hover:text-text transition-colors duration-200"
+                    className="inline-flex items-center justify-center px-4 py-3 font-mono text-xs uppercase tracking-[0.18em] text-text-muted hover:text-primary transition-colors duration-200"
                     aria-label="Open PDF in new tab"
                   >
                     Open PDF
@@ -209,14 +201,14 @@ const Research: React.FC = () => {
 
             {/* Findings strip */}
             <div className="border-t border-white/10 px-6 md:px-10 py-6 md:py-8 bg-background/40">
-              <div className="text-[11px] uppercase tracking-[0.22em] text-primary mb-4">
-                Key Findings
+              <div className="hud-label text-primary mb-5">
+                // Key Findings
               </div>
               <ul className="grid md:grid-cols-3 gap-x-8 gap-y-4">
                 {research.findings.map((f, i) => (
                   <motion.li
                     key={i}
-                    className="relative pl-6 text-text-muted text-sm leading-relaxed"
+                    className="relative pl-7 font-mono text-xs text-text-muted leading-relaxed"
                     initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -233,10 +225,8 @@ const Research: React.FC = () => {
 
             {/* Co-authors footer */}
             <div className="border-t border-white/10 px-6 md:px-10 py-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 bg-black/20">
-              <div className="text-[11px] uppercase tracking-[0.22em] text-text-muted whitespace-nowrap">
-                Co-authors
-              </div>
-              <div className="text-xs text-text-muted/90 leading-relaxed">
+              <div className="hud-label whitespace-nowrap">Co-authors</div>
+              <div className="font-mono text-[11px] text-text-muted/90 leading-relaxed">
                 {research.coAuthors.join(' · ')}
               </div>
             </div>
@@ -269,28 +259,29 @@ const Research: React.FC = () => {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex items-center justify-between mb-3 px-1">
-                <div className="text-xs uppercase tracking-[0.22em] text-text-muted">
+                <div className="hud-label">
                   {research.venue} · {research.type}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
                     href={research.poster.pdf}
                     download={research.poster.filename}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary/90 hover:bg-primary text-white text-xs font-medium px-4 py-2 transition-colors"
+                    className="clip-notch inline-flex items-center gap-2 bg-primary hover:bg-primary-hover text-background hover:text-background font-mono text-[10px] uppercase tracking-[0.18em] px-4 py-2 transition-colors"
                   >
                     <Download className="w-3.5 h-3.5" />
                     Download
                   </a>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-text hover:bg-white/10 transition-colors"
+                    className="inline-flex items-center justify-center w-9 h-9 border border-white/15 text-text hover:border-primary/60 hover:text-primary transition-colors"
                     aria-label="Close preview"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl shadow-primary/10">
+              <div className="relative overflow-hidden border border-white/10 bg-black shadow-2xl shadow-primary/10">
+                <Corners />
                 <img
                   src={getOptimizedImageUrl(research.poster.preview, 1600, 72)}
                   srcSet={getOptimizedSrcSet(

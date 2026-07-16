@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, FileDown } from 'lucide-react';
+import { gsap } from 'gsap';
+import { Github, Linkedin, Mail, FileDown } from 'lucide-react';
 import { Section } from './Section';
 import { Button } from './ui/Button';
 import { Magnetic } from './ui/Magnetic';
+import { Corners } from './ui/Corners';
 import { SITE } from '../data/site';
 import TextType from './ui/TextType';
-import DarkVeil from './ui/DarkVeil';
 
+const TICKER_ITEMS = [
+  'SOFTWARE ENGINEER',
+  'ML / AI',
+  'FULL-STACK',
+  'CLOUD',
+  'RESEARCH',
+  'PHILADELPHIA, PA',
+  'OPEN TO WORK',
+];
 
 const Hero: React.FC = () => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [firstName, ...restName] = SITE.name.split(' ');
+
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '[data-reveal]',
+        { y: 26, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.08, delay: 0.1 }
+      );
+    }, rootRef);
+    return () => ctx.revert();
+  }, []);
+
   const handleScrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -18,82 +43,89 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <Section id="intro" className="relative min-h-[60vh] sm:min-h-screen flex items-center overflow-hidden">
-      
-      <div className="absolute inset-0">
-        <DarkVeil speed={1.7}/>
+    <Section id="intro" className="relative min-h-[70vh] sm:min-h-screen flex items-center overflow-hidden pb-24 sm:pb-32">
+      {/* Engineering-grid backdrop */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-blueprint" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 55% at 50% 0%, rgba(200,245,66,0.06), transparent 65%)',
+          }}
+        />
+        {/* crosshair ticks */}
+        <span className="absolute top-1/3 left-[8%] hidden lg:block font-mono text-white/15 select-none">+</span>
+        <span className="absolute top-2/3 left-[46%] hidden lg:block font-mono text-white/15 select-none">+</span>
+        <span className="absolute top-1/4 right-[6%] hidden lg:block font-mono text-white/15 select-none">+</span>
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
+      {/* HUD corner readouts */}
+      <div aria-hidden className="absolute top-24 left-6 lg:left-10 hidden md:block hud-label">
+        HA — PORTFOLIO_v2.0
+      </div>
+      <div aria-hidden className="absolute top-24 right-6 lg:right-10 hidden md:block hud-label">
+        39.9526°N / 75.1652°W
+      </div>
+
+      <div ref={rootRef} className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full">
         {/* Left content */}
-        <motion.div
-          className="space-y-2 sm:space-y-8"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {/* Name and role */}
-          <div className="space-y-1 sm:space-y-4">
-            <motion.h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-text"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+        <div className="space-y-6 sm:space-y-8">
+          {/* Status line */}
+          <div className="flex items-center gap-3" data-reveal>
+            <span className="w-1.5 h-1.5 bg-primary animate-blink" />
+            <span className="hud-label text-primary">SYS.ONLINE</span>
+            <span className="hud-label">// {SITE.role.toUpperCase()}</span>
+          </div>
+
+          {/* Name */}
+          <h1 className="font-bold uppercase leading-[0.92] tracking-tight text-[clamp(2.75rem,6.5vw,6rem)]">
+            <span className="block text-text" data-reveal>{firstName}</span>
+            <span
+              className="block text-transparent"
+              style={{ WebkitTextStroke: '1.5px rgba(231,234,226,0.85)' }}
+              data-reveal
             >
-              {SITE.name}
-            </motion.h1>
-            
-            <motion.div
-              className="text-base sm:text-lg md:text-2xl text-text-muted"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <TextType 
-                text={SITE.intro.headline} 
-                className="text-gradient font-semibold"
-                pauseDuration={3000}
-                typingSpeed={100}
-                deletingSpeed={50}
-                loop={true}
-                showCursor={true}
-                cursorCharacter="|"
-                cursorClassName="text-primary"
-              />
-            </motion.div>
+              {restName.join(' ')}
+            </span>
+          </h1>
+
+          {/* Typed headline */}
+          <div className="font-mono text-sm sm:text-base md:text-lg min-h-[1.75rem]" data-reveal>
+            <span className="text-white/30 mr-2 select-none">&gt;</span>
+            <TextType
+              text={SITE.intro.headline}
+              className="text-primary"
+              pauseDuration={3000}
+              typingSpeed={100}
+              deletingSpeed={50}
+              loop={true}
+              showCursor={true}
+              cursorCharacter="█"
+              cursorClassName="text-primary"
+            />
           </div>
 
           {/* Description */}
-          <motion.p
-            className="text-base sm:text-lg text-text-muted max-w-xl leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
+          <p className="font-mono text-xs sm:text-sm text-text-muted max-w-xl leading-relaxed border-l border-white/15 pl-4" data-reveal>
             {SITE.intro.subtext}
-          </motion.p>
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
+          <div className="flex flex-wrap gap-3 sm:gap-4" data-reveal>
             <Magnetic>
               <motion.a
                 href={SITE.intro.ctaPrimary.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary-hover hover:opacity-90 text-white hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="clip-notch inline-flex items-center justify-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] bg-primary text-background hover:bg-primary-hover hover:text-background transition-colors duration-200"
+                whileTap={{ scale: 0.97 }}
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4" />
                 {SITE.intro.ctaPrimary.label}
               </motion.a>
             </Magnetic>
-            
+
             <Button
               variant="secondary"
               size="md"
@@ -106,93 +138,84 @@ const Hero: React.FC = () => {
               <motion.a
                 href="/Hirab_Abdourazak_2025.pdf"
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 text-base rounded-xl font-medium bg-primary/20 border border-primary/40 text-white hover:bg-primary/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary/50"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] border border-white/20 text-text hover:border-primary/60 hover:text-primary transition-colors duration-200"
+                whileTap={{ scale: 0.97 }}
               >
-                <FileDown className="h-5 w-5" />
+                <FileDown className="h-4 w-4" />
                 Resume
               </motion.a>
             </Magnetic>
-          </motion.div>
+          </div>
 
           {/* Social links */}
-          <motion.div
-            className="flex justify-center sm:justify-start gap-6 pt-4 pb-4 sm:pt-8 sm:pb-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-          >
-            {SITE.socials.map((social, index) => (
-              <motion.a
+          <div className="flex justify-center sm:justify-start gap-6 pt-2 sm:pt-4" data-reveal>
+            {SITE.socials.map((social) => (
+              <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-muted hover:text-primary transition-colors duration-200"
-                whileHover={{ scale: 1.1, y: -2 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1.3 + index * 0.1 }}
+                className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-200"
               >
-                {social.label === 'GitHub' && <Github className="h-6 w-6" />}
-                {social.label === 'LinkedIn' && <Linkedin className="h-6 w-6" />}
-                {social.label === 'Email' && <Mail className="h-6 w-6" />}
-                <span className="sr-only">{social.label}</span>
-              </motion.a>
+                {social.label === 'GitHub' && <Github className="h-4 w-4" />}
+                {social.label === 'LinkedIn' && <Linkedin className="h-4 w-4" />}
+                {social.label === 'Email' && <Mail className="h-4 w-4" />}
+                <span className="hidden sm:inline">{social.label}</span>
+              </a>
             ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Right content - Hero Image */}
-        <motion.div
-          className="relative flex items-center justify-center lg:justify-end order-first lg:order-last mt-8 lg:mt-0"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <div className="relative w-full max-w-[280px] sm:max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl">
-            {/* Hero Image */}
-            <motion.div
-              className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <img
-                src="/hero-image.webp"
-                alt={`${SITE.name} - Software Engineer & ML Enthusiast`}
-                className="w-full h-full object-cover"
-                fetchPriority="high"
-              />
-              {/* Subtle overlay for better text contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
-            </motion.div>
-
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl" />
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary-hover/10 rounded-full blur-2xl" />
           </div>
-        </motion.div>
-        
+        </div>
+
+        {/* Right content - framed portrait */}
+        <div className="relative flex items-center justify-center lg:justify-end order-first lg:order-last mt-8 lg:mt-0" data-reveal>
+          <div className="relative w-full max-w-[260px] sm:max-w-xs md:max-w-md lg:max-w-lg">
+            <div className="relative border border-white/10 bg-surface/40 p-2">
+              <Corners />
+              <div className="relative aspect-square overflow-hidden">
+                <img
+                  src="/hero-image.webp"
+                  alt={`${SITE.name} - ${SITE.role}`}
+                  className="w-full h-full object-cover grayscale-[30%] contrast-105 hover:grayscale-0 transition-[filter] duration-500"
+                  fetchPriority="high"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
+              </div>
+              <div className="flex items-center justify-between pt-2 px-1">
+                <span className="hud-label text-primary">FIG.01</span>
+                <span className="hud-label">{SITE.location.toUpperCase()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-4 sm:bottom-8 left-0 right-0 flex justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.5 }}
+        className="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 hidden sm:block text-center cursor-pointer"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        onClick={() => handleScrollToSection('#skills')}
       >
-        <motion.div
-          className="text-text-muted cursor-pointer text-center"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          onClick={() => handleScrollToSection('#skills')}
-        >
-          <ArrowDown className="h-6 w-6 mx-auto" />
-          <span className="text-sm mt-2 block text-center">Scroll down</span>
-        </motion.div>
+        <span className="hud-label">Scroll</span>
+        <motion.span
+          className="block w-px h-8 bg-primary/70 mx-auto mt-2 origin-top"
+          animate={{ scaleY: [0, 1, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        />
       </motion.div>
+
+      {/* Ticker strip */}
+      <div className="absolute bottom-0 left-0 right-0 border-y border-white/10 bg-background/70 backdrop-blur-sm py-3 marquee">
+        <div className="marquee-track" aria-hidden>
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+            <span key={i} className="inline-flex items-center font-mono text-[11px] uppercase tracking-[0.3em] text-text-muted">
+              {item}
+              <span className="text-primary mx-8 select-none">+</span>
+            </span>
+          ))}
+        </div>
+      </div>
     </Section>
   );
 };

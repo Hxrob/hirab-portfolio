@@ -4,10 +4,12 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
+import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Research } from './components/Research';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { ChatWidget } from './components/ChatWidget';
 
 function App() {
   return (
@@ -34,6 +36,16 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <Skills />
+        </motion.div>
+
+        {/* Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
+        >
+          <Experience />
         </motion.div>
 
         {/* Projects Section */}
@@ -79,14 +91,22 @@ function App() {
 
       {/* Background Elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-0 -translate-x-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 translate-x-1/2 w-96 h-96 bg-primary-hover/5 rounded-full blur-3xl" />
-        <div className="absolute top-3/4 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/3 rounded-full blur-2xl" />
+        <div className="absolute inset-0 bg-blueprint opacity-50" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 45% at 50% 100%, rgba(200,245,66,0.04), transparent 65%)',
+          }}
+        />
       </div>
+
+      {/* Film grain */}
+      <div aria-hidden className="noise-overlay" />
 
       <Analytics />
       <SpeedInsights />
+      <ChatWidget />
     </div>
   );
 }

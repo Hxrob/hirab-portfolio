@@ -1,173 +1,182 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Github } from 'lucide-react';
-import { 
-  SiReact, 
-  SiNextdotjs, 
-  SiExpress, 
-  SiFirebase, 
-  SiMongodb, 
-  SiVercel, 
-  SiGooglecloud,
-  SiOpenai,
-  SiAmazon,
-  SiGooglemaps,
-  SiPython,
-  SiFastapi,
-  SiNvidia,
-  SiPytorch,
-  SiOllama
-} from 'react-icons/si';
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
-import { Button } from './ui/Button';
-import { AnimatedBackground } from './ui/AnimatedBackground';
+import { Corners } from './ui/Corners';
 import { SITE } from '../data/site';
 import { getOptimizedImageUrl, getOptimizedSrcSet } from '../lib/vercelImage';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PROJECT_IMAGE_WIDTHS = [480, 768, 1024, 1440];
 const PROJECT_IMAGE_SIZES =
   '(min-width: 1280px) 34vw, (min-width: 768px) 40vw, 92vw';
 
 const Projects: React.FC = () => {
-  const techIcons: Record<string, React.ReactElement> = {
-    'React.js': <SiReact className="w-6 h-6 text-[#61DAFB]" />,
-    'Next.js': <SiNextdotjs className="w-6 h-6 text-white" />,
-    'Express': <SiExpress className="w-6 h-6 text-white" />,
-    'Firebase': <SiFirebase className="w-6 h-6 text-[#FFCA28]" />,
-    'MongoDB': <SiMongodb className="w-6 h-6 text-[#47A248]" />,
-    'Vercel': <SiVercel className="w-6 h-6 text-white" />,
-    'Google Cloud': <SiGooglecloud className="w-6 h-6 text-[#4285F4]" />,
-    'OpenAI API': <SiOpenai className="w-6 h-6 text-white" />,
-    'Rekognition': <SiAmazon className="w-6 h-6 text-[#FF9900]" />,
-    'Google Maps API': <SiGooglemaps className="w-6 h-6 text-[#4285F4]" />,
-    'Resend': <ExternalLink className="w-6 h-6 text-primary" />,
-    'Python': <SiPython className="w-6 h-6 text-[#3776AB]" />,
-    'FastAPI': <SiFastapi className="w-6 h-6 text-[#009688]" />,
-    'NVIDIA NeMo': <SiNvidia className="w-6 h-6 text-[#76B900]" />,
-    'PyTorch': <SiPytorch className="w-6 h-6 text-[#EE4C2C]" />,
-    'Ollama': <SiOllama className="w-6 h-6 text-white" />
-  };
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('[data-project-img]').forEach((el) => {
+        gsap.fromTo(
+          el,
+          { clipPath: 'inset(0 0 100% 0)' },
+          {
+            clipPath: 'inset(0 0 0% 0)',
+            duration: 1.1,
+            ease: 'power4.out',
+            scrollTrigger: { trigger: el, start: 'top 82%' },
+          }
+        );
+      });
+    }, rootRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <Section id="projects" className="relative deferred-section">
-      {/* Animated Background (projects variant) */}
-      <AnimatedBackground variant="projects" />
-
-      <div className="relative z-10">
+      <div ref={rootRef} className="relative z-10">
         <SectionHeading
-          overline="Projects"
+          index="02"
+          overline="Deployments"
           title="Featured Work"
-          centered
         />
 
-        {/* Project sections */}
-        <div className="mt-16 md:mt-20 space-y-24 md:space-y-32">
+        {/* Project dossiers */}
+        <div className="mt-4 space-y-16 md:space-y-24">
           {SITE.projects.map((project, index) => {
-            const isEven = index % 2 === 1; // Second project (index 1) is "even" in display order
-            
+            const isEven = index % 2 === 1;
+            const num = String(index + 1).padStart(2, '0');
+
             return (
               <motion.article
                 key={project.title}
-                className={`w-full flex flex-col items-center gap-8 md:gap-12 ${
-                  isEven ? 'md:flex-row-reverse' : 'md:flex-row'
-                }`}
+                className="border-t border-white/10 pt-8 md:pt-12"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6 }}
               >
-                {/* Image pane */}
-                <div className="relative md:w-2/5 w-full flex-shrink-0 flex items-center justify-center">
-                  {project.image ? (
-                    <img
-                      src={getOptimizedImageUrl(project.image, 1024, 68)}
-                      srcSet={getOptimizedSrcSet(project.image, PROJECT_IMAGE_WIDTHS, 68)}
-                      sizes={PROJECT_IMAGE_SIZES}
-                      alt={project.title}
-                      className="w-full h-auto object-contain rounded-lg"
-                      width={project.imageWidth}
-                      height={project.imageHeight}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="w-full aspect-video bg-primary/5 rounded-lg" />
-                  )}
+                {/* Row meta */}
+                <div className="flex items-center justify-between mb-6 md:mb-8">
+                  <span className="font-mono text-sm text-primary tracking-[0.2em]">
+                    /{num}
+                  </span>
+                  <span className="hud-label hidden sm:block">
+                    PROJECT_FILE.{num} // STATUS: SHIPPED
+                  </span>
                 </div>
 
-                {/* Details pane */}
-                <div className="md:w-3/5 w-full flex flex-col justify-center py-8 md:py-0 gap-6">
-                {/* Title */}
-                <h3 className="text-4xl md:text-4xl font-semibold text-text leading-tight">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xl text-text-muted leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Technology Icons */}
-                <div className="flex flex-wrap gap-3">
-                  {project.tags.map((tag) => (
-                    <div key={tag} className="p-2 rounded-lg bg-surface/30 hover:bg-surface/50 transition-colors" title={tag}>
-                      {techIcons[tag] || <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-xs text-primary font-medium">{tag.charAt(0)}</div>}
+                <div
+                  className={`w-full flex flex-col items-center gap-8 md:gap-14 ${
+                    isEven ? 'md:flex-row-reverse' : 'md:flex-row'
+                  }`}
+                >
+                  {/* Image pane */}
+                  <div className="relative md:w-2/5 w-full flex-shrink-0">
+                    <div className="relative border border-white/10 bg-surface/40 p-2">
+                      <Corners size="sm" />
+                      <div data-project-img className="overflow-hidden">
+                        {project.image ? (
+                          <img
+                            src={getOptimizedImageUrl(project.image, 1024, 68)}
+                            srcSet={getOptimizedSrcSet(project.image, PROJECT_IMAGE_WIDTHS, 68)}
+                            sizes={PROJECT_IMAGE_SIZES}
+                            alt={project.title}
+                            className="w-full h-auto object-contain hover:scale-[1.02] transition-transform duration-500"
+                            width={project.imageWidth}
+                            height={project.imageHeight}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <div className="w-full aspect-video bg-primary/5" />
+                        )}
+                      </div>
+                      <div className="flex items-center justify-between pt-2 px-1">
+                        <span className="hud-label text-primary">FIG.{num}</span>
+                        <span className="hud-label">{project.title.toUpperCase()}</span>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                {/* Actions */}
-                <div className="flex gap-4">
-                  {'demo' in project.links && project.links.demo && (
-                    <Button
-                      variant="primary"
-                      size="lg"
-                      onClick={() => window.open((project.links as any).demo, '_blank')}
-                      aria-label={`View live demo of ${project.title}`}
-                    >
-                      Demo
-                      <ExternalLink className="h-5 w-5 ml-2" />
-                    </Button>
-                  )}
-                  
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    onClick={() => window.open(project.links.github, '_blank')}
-                    aria-label={`View source code for ${project.title} on GitHub`}
-                  >
-                    <Github className="h-5 w-5 mr-2" />
-                    GitHub
-                  </Button>
+                  {/* Details pane */}
+                  <div className="md:w-3/5 w-full flex flex-col justify-center gap-5 md:gap-6">
+                    <h3 className="text-3xl md:text-4xl font-bold uppercase tracking-tight text-text leading-tight">
+                      {project.title}
+                    </h3>
+
+                    <p className="font-mono text-sm md:text-[0.9rem] text-text-muted leading-relaxed border-l border-white/15 pl-4">
+                      {project.description}
+                    </p>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span key={tag} className="chip">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex flex-wrap gap-3 pt-1">
+                      {'demo' in project.links && project.links.demo && (
+                        <a
+                          href={project.links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="clip-notch inline-flex items-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] bg-primary text-background hover:bg-primary-hover hover:text-background transition-colors duration-200"
+                          aria-label={`View live demo of ${project.title}`}
+                        >
+                          Launch Demo
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      )}
+
+                      <a
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] border border-white/20 text-text hover:border-primary/60 hover:text-primary transition-colors duration-200"
+                        aria-label={`View source code for ${project.title} on GitHub`}
+                      >
+                        <Github className="h-4 w-4" />
+                        Source
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.article>
+              </motion.article>
             );
           })}
         </div>
 
         {/* Call to action */}
         <motion.div
-          className="mt-16 text-center pb-8"
-          initial={{ opacity: 0, y: 40 }}
+          className="mt-16 md:mt-24 border-t border-white/10 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.6 }}
         >
-          <p className="text-text-muted mb-6 pt-6 max-w-2xl mx-auto">
-            Want to see more? Check out my GitHub for additional projects and contributions.
+          <p className="font-mono text-xs md:text-sm text-text-muted max-w-xl">
+            // Additional deployments, experiments and contributions archived on GitHub.
           </p>
-          <Button
-            variant="secondary"
-            size="lg"
-            onClick={() => window.open(SITE.socials.find(s => s.label === 'GitHub')?.href, '_blank')}
-            className="group"
+          <a
+            href={SITE.socials.find(s => s.label === 'GitHub')?.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-6 py-3 font-mono text-xs uppercase tracking-[0.18em] border border-white/20 text-text hover:border-primary/60 hover:text-primary transition-colors duration-200 whitespace-nowrap"
           >
-            <Github className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform" />
+            <Github className="h-4 w-4" />
             View All Projects
-            <ExternalLink className="h-4 w-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </Button>
+            <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
         </motion.div>
       </div>
     </Section>

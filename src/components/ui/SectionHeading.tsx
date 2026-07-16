@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../../lib/utils';
+import { Scramble } from './Scramble';
 
 interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   overline?: string;
+  index?: string;
   className?: string;
   centered?: boolean;
 }
@@ -14,53 +16,37 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
   title,
   subtitle,
   overline,
+  index = '00',
   className,
-  centered = false,
 }) => {
   return (
     <motion.div
-      className={cn(
-        'mb-12 md:mb-16',
-        centered ? 'text-center' : '',
-        className
-      )}
+      className={cn('mb-12 md:mb-16', className)}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6 }}
     >
-      {overline && (
-        <motion.div
-          className="text-primary text-sm font-medium uppercase tracking-wider mb-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-        >
-          {overline}
-        </motion.div>
-      )}
-      
-      <motion.h2
-        className="text-3xl md:text-4xl lg:text-5xl font-bold text-text mb-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.6 }}
-      >
-        {title}
-      </motion.h2>
-      
+      <div className="flex items-center gap-4 mb-5">
+        <span className="hud-label text-primary">[{index}]</span>
+        {overline && <span className="hud-label">{overline}</span>}
+        <span aria-hidden className="h-px flex-1 bg-white/10" />
+        <span aria-hidden className="hud-label hidden sm:block text-white/20">///</span>
+      </div>
+
+      <Scramble
+        as="h2"
+        text={title.toUpperCase()}
+        className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-text"
+      />
+
       {subtitle && (
         <motion.p
-          className={cn(
-            "text-lg text-text-muted max-w-2xl",
-            centered ? "mx-auto" : ""
-          )}
-          initial={{ opacity: 0, y: 20 }}
+          className="mt-5 max-w-2xl font-mono text-xs md:text-sm text-text-muted leading-relaxed"
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
         >
           {subtitle}
         </motion.p>

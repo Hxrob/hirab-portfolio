@@ -2,9 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Section } from './Section';
 import { SectionHeading } from './ui/SectionHeading';
+import { Corners } from './ui/Corners';
 import LogoLoop from './ui/LogoLoop';
 import { SITE } from '../data/site';
-import { 
+import {
   SiTypescript, SiPython, SiCplusplus, SiPostgresql, SiGo,
   SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiFlask, SiFastapi,
   SiTailwindcss, SiFramer, SiOpenai, SiFirebase, SiMongodb,
@@ -22,7 +23,7 @@ const Skills: React.FC = () => {
     { node: <SiPostgresql style={{ color: 'white' }} />, title: "SQL", href: "" },
     { node: <SiGo style={{ color: 'white' }} />, title: "Go", href: "" },
     { node: <SiJavascript style={{ color: 'white' }} />, title: "JavaScript", href: "" },
-    
+
     // Frameworks
     { node: <SiReact style={{ color: 'white' }} />, title: "React", href: "" },
     { node: <SiNextdotjs style={{ color: 'white' }} />, title: "Next.js", href: "" },
@@ -32,7 +33,7 @@ const Skills: React.FC = () => {
     { node: <SiFastapi style={{ color: 'white' }} />, title: "FastAPI", href: "" },
     { node: <SiTailwindcss style={{ color: 'white' }} />, title: "Tailwind CSS", href: "" },
     { node: <SiFramer style={{ color: 'white' }} />, title: "Framer Motion", href: "" },
-    
+
     // APIs & Tools
     { node: <SiOpenai style={{ color: 'white' }} />, title: "OpenAI API", href: "" },
     { node: <SiFirebase style={{ color: 'white' }} />, title: "Firebase", href: "" },
@@ -46,80 +47,83 @@ const Skills: React.FC = () => {
     { node: <SiResend style={{ color: 'white' }} />, title: "Resend API", href: "" },
   ];
 
+  const groups: { id: string; label: string; items: readonly string[] }[] = [
+    { id: 'A', label: 'Languages', items: SITE.skills.languages },
+    { id: 'B', label: 'Frameworks', items: SITE.skills.frameworks },
+    { id: 'C', label: 'APIs + Tools', items: SITE.skills.apisTools },
+  ];
+
   return (
-    <Section id="skills" className="bg-background/50 relative deferred-section">
+    <Section id="skills" className="relative deferred-section">
       <div className="relative z-10">
         <SectionHeading
-          overline="Skills"
-          title="My Tech Stack"
-          subtitle="A comprehensive toolkit for building modern applications"
-          centered
+          index="01"
+          overline="Capabilities"
+          title="Tech Stack"
+          subtitle="A comprehensive toolkit for building modern applications."
         />
 
-        {/* LogoLoop for all technologies */}
+        {/* Spec-sheet columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+          {groups.map((group, groupIndex) => (
+            <motion.div
+              key={group.id}
+              className="relative border border-white/10 bg-surface/40"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: groupIndex * 0.12 }}
+            >
+              <Corners size="sm" className="border-white/25" />
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+                <span className="hud-label text-primary">
+                  MOD.{group.id} // {group.label}
+                </span>
+                <span className="hud-label">
+                  ×{String(group.items.length).padStart(2, '0')}
+                </span>
+              </div>
+              <ul className="divide-y divide-white/5">
+                {group.items.map((item, i) => (
+                  <li
+                    key={item}
+                    className="group flex items-baseline gap-3 px-4 py-2.5 hover:bg-white/[0.03] transition-colors duration-150"
+                  >
+                    <span className="font-mono text-[10px] text-white/25 group-hover:text-primary/60 transition-colors duration-150">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-mono text-sm text-text-muted group-hover:text-text transition-colors duration-150">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Logo ticker */}
         <motion.div
-          className="mt-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="mt-16 border-y border-white/10 py-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div style={{ height: '120px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ height: '96px', position: 'relative', overflow: 'hidden' }}>
             <LogoLoop
               logos={techLogos}
               speed={60}
               direction="left"
-              logoHeight={48}
-              gap={40}
+              logoHeight={40}
+              gap={44}
               pauseOnHover
               scaleOnHover
               fadeOut
-              fadeOutColor="#0a0a0a"
+              fadeOutColor="#08090A"
               ariaLabel="Technologies and tools I work with"
             />
           </div>
-        </motion.div>
-
-        {/* Stats section */}
-        <motion.div
-          className="mt-20 grid grid-cols-3 gap-8 justify-center max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {[
-            { label: 'Languages', value: SITE.skills.languages.length },
-            { label: 'Frameworks', value: SITE.skills.frameworks.length },
-            { label: 'Tools', value: SITE.skills.apisTools.length }
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-            >
-              <motion.div
-                className="text-3xl md:text-4xl font-bold text-gradient mb-2"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 0.8 + index * 0.1,
-                  type: 'spring',
-                  stiffness: 200
-                }}
-              >
-                {stat.value}+
-              </motion.div>
-              <div className="text-text-muted text-sm">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </Section>
