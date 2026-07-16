@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, children, hover = true }, ref) => {
-    const baseClasses = 'bg-surface border border-white/10 rounded-2xl shadow-lg';
+    const baseClasses = 'relative bg-surface/60 border border-white/10';
 
     return (
       <motion.div
@@ -20,7 +20,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.5 }}
-        whileHover={hover ? { y: -5, scale: 1.02 } : undefined}
+        whileHover={hover ? { y: -3 } : undefined}
       >
         {children}
       </motion.div>

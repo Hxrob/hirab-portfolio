@@ -7,19 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#000000',
-        surface: '#101022',
+        background: '#08090A',
+        surface: '#0E1013',
         primary: {
-          DEFAULT: '#6A24F2',
-          hover: '#8B5CF6',
+          DEFAULT: '#C8F542',
+          hover: '#DBFF6E',
         },
+        signal: '#FF6B2C',
         text: {
-          DEFAULT: '#FFFFFF',
-          muted: '#A3A3B2',
+          DEFAULT: '#E7EAE2',
+          muted: '#8B9189',
         },
       },
       fontFamily: {
-        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+        sans: ['"Chakra Petch"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       container: {
         center: true,
@@ -34,34 +36,24 @@ export default {
       animation: {
         'fade-up': 'fadeUp 0.6s ease-out',
         'fade-in': 'fadeIn 0.6s ease-out',
-        'typewriter': 'typewriter 2s steps(20) infinite alternate',
+        marquee: 'marquee 28s linear infinite',
+        blink: 'blink 1.4s steps(2, start) infinite',
       },
       keyframes: {
         fadeUp: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(20px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         fadeIn: {
-          '0%': {
-            opacity: '0',
-          },
-          '100%': {
-            opacity: '1',
-          },
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        typewriter: {
-          '0%': {
-            width: '0',
-          },
-          '100%': {
-            width: '100%',
-          },
+        marquee: {
+          to: { transform: 'translateX(-50%)' },
+        },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.15' },
         },
       },
     },
