@@ -6,11 +6,13 @@ import LogoWhite from '/Hirab-Logo-White.webp';
 const leftNavItems = [
   { label: 'Home', href: '#intro', num: '01' },
   { label: 'Skills', href: '#skills', num: '02' },
+  { label: 'Experience', href: '#experience', num: '03' },
 ];
 
 const rightNavItems = [
-  { label: 'Projects', href: '#projects', num: '03' },
-  { label: 'Research', href: '#research', num: '04' },
+  { label: 'Projects', href: '#projects', num: '04' },
+  { label: 'Research', href: '#research', num: '05' },
+  { label: 'Contact', href: '#contact', num: '06' },
 ];
 
 const allNavItems = [...leftNavItems, ...rightNavItems];
