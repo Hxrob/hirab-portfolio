@@ -23,7 +23,7 @@ const initialMessages: ChatMessage[] = [
     id: 'welcome',
     role: 'assistant',
     content:
-      "Hi, I'm Hirab's portfolio assistant. Ask me about his projects, research, skills, or how to contact him.",
+      "Hi, I'm Hirabot! Ask me about his projects, research, skills, or how to contact him.",
   },
 ];
 
@@ -230,7 +230,7 @@ export function ChatWidget() {
         aria-label={isOpen ? 'Close portfolio assistant' : 'Open portfolio assistant'}
       >
         {isOpen ? <X size={20} aria-hidden="true" /> : <MessageCircle size={20} aria-hidden="true" />}
-        <span className="hidden sm:inline">{isOpen ? 'Close' : 'Ask AI'}</span>
+        <span className="hidden sm:inline">{isOpen ? 'Close' : 'Ask Me'}</span>
         {!isOpen && <Sparkles className="hidden h-4 w-4 sm:block" aria-hidden="true" />}
       </motion.button>
     </div>
